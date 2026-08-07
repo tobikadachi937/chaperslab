@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaper's Labs — Not a website. A system.</title>
+  <meta name="description" content="Chaper's Labs engineers websites, UI/UX, and SEO systems for small and medium-sized businesses, with the precision of a product team.">
+  <meta name="theme-color" content="#0A0B0D">
+  <meta property="og:title" content="Chaper's Labs — Not a website. A system.">
+  <meta property="og:description" content="Enterprise-grade websites, UI/UX design, and SEO for small and medium-sized businesses.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Signature interaction: reticle cursor (desktop, fine-pointer only; JS adds .is-active) -->
+  <div class="reticle" aria-hidden="true" id="reticle">
+    <span class="reticle-corner tl"></span>
+    <span class="reticle-corner tr"></span>
+    <span class="reticle-corner bl"></span>
+    <span class="reticle-corner br"></span>
+  </div>
+
+  <!-- Live system readout — fixed, functional, not decorative -->
+  <div class="sys-readout mono" id="sys-readout" aria-hidden="true">
+    <span id="sys-section">SEC 01/09</span>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+    <div class="header-inner">
+      <a href="#top" class="logo" aria-label="Chaper's Labs — home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square">
+            <path d="M6 14 V6 H14"/><path d="M26 6 H34 V14"/>
+            <path d="M6 26 V34 H14"/><path d="M34 26 V34 H26"/>
+          </g>
+          <circle cx="20" cy="20" r="3" fill="#3DFFAB"/>
+        </svg>
+        <span class="logo-word">Chaper<span class="accent-text">'</span>s Labs</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#principles">Studio</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary" href="#contact"><span>Start a project</span></a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+          <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- Mobile full-screen nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-head container">
+      <a href="#top" class="logo" aria-label="Chaper's Labs — home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square">
+            <path d="M6 14 V6 H14"/><path d="M26 6 H34 V14"/>
+            <path d="M6 26 V34 H14"/><path d="M34 26 V34 H26"/>
+          </g>
+          <circle cx="20" cy="20" r="3" fill="#3DFFAB"/>
+        </svg>
+        <span class="logo-word">Chaper<span class="accent-text">'</span>s Labs</span>
+      </a>
+      <button class="menu-close" id="menu-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile">
+      <ol class="mobile-nav-list">
+        <li><span class="mono idx">01</span><a href="#capabilities">Capabilities</a></li>
+        <li><span class="mono idx">02</span><a href="#work">Work</a></li>
+        <li><span class="mono idx">03</span><a href="#team">Team</a></li>
+        <li><span class="mono idx">04</span><a href="#principles">Studio</a></li>
+        <li><span class="mono idx">05</span><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ 01 — OPENING ============
+         Editorial split instead of a full-bleed image-behind-text hero: copy sits
+         on flat ground at full contrast, the (temporary) image is confined to a
+         bordered "plate" with its own crop-mark corners and a FIG. tag — a
+         deliberate framing device, not a backdrop. Swapping the artwork later
+         only changes what's inside the plate; the composition doesn't move. -->
+    <section class="beat beat-opening" id="top" data-section-label="SEC 01/09 — OPEN" aria-label="Introduction">
+      <div class="opening-media" aria-hidden="true">
+        <img src="https://picsum.photos/seed/chapers-hq-01/1800/2200" alt="" width="1800" height="2200" fetchpriority="high" decoding="async">
+      </div>
+      <div class="opening-frame" aria-hidden="true">
+        <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
+      </div>
+      <p class="opening-kicker mono reveal"><span class="dot" aria-hidden="true"></span>Chaper's Labs — Studio 001</p>
+      <div class="container opening-inner">
+        <h1 class="opening-title">
+          <span class="line reveal">Certainty,</span>
+          <span class="line reveal">engineered</span>
+          <span class="line reveal">in <span class="accent-text">public.</span></span>
+        </h1>
+        <div class="opening-connector reveal" aria-hidden="true"></div>
+        <div class="opening-meta reveal">
+          <p class="opening-lead">Chaper's Labs — websites, UI/UX, and SEO systems for
+            businesses that are done hoping their digital presence works.</p>
+          <a class="btn btn-primary" href="#contact"><span>Start a project</span></a>
+        </div>
+      </div>
+      <div class="scroll-cue reveal" aria-hidden="true">
+        <span class="mono">SCROLL</span>
+        <span class="scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ============ 02 — THE SYSTEM (signature experience) ============
+         CONTAINED → ACTIVATED → RELEASED → RESOLVED. A calm core sits still
+         until the section crosses the activation threshold, then briefly
+         releases a controlled burst of particles and fragments — Signal
+         Green, restrained glow, near-black ground — before settling into a
+         steady final state. It happens once. The four stages beneath fade
+         up in that same resolved moment, calm, not competing with the burst.
+         One shared IntersectionObserver trigger drives all of it identically
+         on every breakpoint — nothing here depends on a pointer. Reduced
+         motion skips straight to the resolved state: no burst, core and
+         stage list both shown settled immediately. -->
+    <section class="beat beat-system-section" id="system-section" data-section-label="SEC 02/09 — THE SYSTEM" aria-labelledby="system-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>The system</p>
+        <h2 id="system-heading" class="beat-title reveal">A fixed sequence. No open scopes.</h2>
+      </div>
+
+      <div class="system-burst" id="system-burst" role="img" aria-label="A contained core releasing a single burst of particles that settle into a fixed system.">
+        <p class="system-burst-readout mono" id="system-burst-readout" aria-hidden="true">CONTAINED</p>
+        <div class="system-burst-stage">
+          <span class="system-core" aria-hidden="true"></span>
+          <div class="system-particles" aria-hidden="true">
+            <span class="particle" style="--tx:69.7px; --ty:-6.1px; --psz:2px; --pdelay:0ms; --pdur:900ms;"></span>
+            <span class="particle" style="--tx:77.9px; --ty:36.3px; --psz:3px; --pdelay:18ms; --pdur:990ms;"></span>
+            <span class="particle" style="--tx:87.4px; --ty:52.5px; --psz:4px; --pdelay:36ms; --pdur:1080ms;"></span>
+            <span class="particle" style="--tx:57.2px; --ty:103.2px; --psz:2px; --pdelay:54ms; --pdur:1170ms;"></span>
+            <span class="particle" style="--tx:52.4px; --ty:123.3px; --psz:3px; --pdelay:72ms; --pdur:900ms;"></span>
+            <span class="particle" style="--tx:-8.5px; --ty:69.5px; --psz:4px; --pdelay:90ms; --pdur:990ms;"></span>
+            <span class="particle" style="--tx:-19.3px; --ty:83.8px; --psz:2px; --pdelay:0ms; --pdur:1080ms;"></span>
+            <span class="particle" style="--tx:-69.6px; --ty:74.6px; --psz:3px; --pdelay:18ms; --pdur:1170ms;"></span>
+            <span class="particle" style="--tx:-89.1px; --ty:77.4px; --psz:4px; --pdelay:36ms; --pdur:900ms;"></span>
+            <span class="particle" style="--tx:-131.5px; --ty:25.6px; --psz:2px; --pdelay:54ms; --pdur:990ms;"></span>
+            <span class="particle" style="--tx:-69.7px; --ty:6.1px; --psz:3px; --pdelay:72ms; --pdur:1080ms;"></span>
+            <span class="particle" style="--tx:-77.9px; --ty:-36.3px; --psz:4px; --pdelay:90ms; --pdur:1170ms;"></span>
+            <span class="particle" style="--tx:-87.4px; --ty:-52.5px; --psz:2px; --pdelay:0ms; --pdur:900ms;"></span>
+            <span class="particle" style="--tx:-57.2px; --ty:-103.2px; --psz:3px; --pdelay:18ms; --pdur:990ms;"></span>
+            <span class="particle" style="--tx:-52.4px; --ty:-123.3px; --psz:4px; --pdelay:36ms; --pdur:1080ms;"></span>
+            <span class="particle" style="--tx:8.5px; --ty:-69.5px; --psz:2px; --pdelay:54ms; --pdur:1170ms;"></span>
+            <span class="particle" style="--tx:19.3px; --ty:-83.8px; --psz:3px; --pdelay:72ms; --pdur:900ms;"></span>
+            <span class="particle" style="--tx:69.6px; --ty:-74.6px; --psz:4px; --pdelay:90ms; --pdur:990ms;"></span>
+            <span class="particle" style="--tx:89.1px; --ty:-77.4px; --psz:2px; --pdelay:0ms; --pdur:1080ms;"></span>
+            <span class="particle" style="--tx:131.5px; --ty:-25.6px; --psz:3px; --pdelay:18ms; --pdur:1170ms;"></span>
+          </div>
+          <div class="system-fragments" aria-hidden="true">
+            <span class="fragment-shard" style="--tx:88.1px; --ty:35.6px; --frot:44deg; --fdelay:40ms;"></span>
+            <span class="fragment-shard" style="--tx:44.2px; --ty:104.0px; --frot:134deg; --fdelay:62ms;"></span>
+            <span class="fragment-shard" style="--tx:-49.1px; --ty:121.5px; --frot:224deg; --fdelay:84ms;"></span>
+            <span class="fragment-shard" style="--tx:-87.4px; --ty:37.1px; --frot:314deg; --fdelay:106ms;"></span>
+            <span class="fragment-shard" style="--tx:-104.8px; --ty:-42.3px; --frot:44deg; --fdelay:40ms;"></span>
+            <span class="fragment-shard" style="--tx:-51.2px; --ty:-120.6px; --frot:134deg; --fdelay:62ms;"></span>
+            <span class="fragment-shard" style="--tx:35.6px; --ty:-88.1px; --frot:224deg; --fdelay:84ms;"></span>
+            <span class="fragment-shard" style="--tx:104.0px; --ty:-44.2px; --frot:314deg; --fdelay:106ms;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <ol class="system-field" id="system-field">
+          <li class="system-node" style="--i:0;">
+            <p class="mono cap-index">01 / 04</p>
+            <h3>Discover</h3>
+            <p>We map the business, the competition, and where your
+              current presence is quietly costing you customers.</p>
+          </li>
+          <li class="system-node" style="--i:1;">
+            <p class="mono cap-index">02 / 04</p>
+            <h3>Design</h3>
+            <p>A complete visual and interaction system, validated
+              against real references before a single page is built.</p>
+          </li>
+          <li class="system-node" style="--i:2;">
+            <p class="mono cap-index">03 / 04</p>
+            <h3>Build</h3>
+            <p>Hand-built, performance-first, accessible code — no
+              bloated dependencies, nothing shipped we can't explain.</p>
+          </li>
+          <li class="system-node" style="--i:3;">
+            <p class="mono cap-index">04 / 04</p>
+            <h3>Grow</h3>
+            <p>Launch is day one. SEO, iteration, and measurement
+              continue on a fixed cadence after that.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 03 — CAPABILITIES (asymmetric) ============ -->
+    <section class="beat beat-capabilities" id="capabilities" data-section-label="SEC 03/09 — CAPABILITIES" aria-labelledby="cap-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>What we build</p>
+        <h2 id="cap-heading" class="beat-title reveal">Three disciplines. One team.</h2>
+        <p class="beat-subtitle reveal">No hand-offs between a design department and a dev
+          department — the same people carry a project from sketch to shipped code.</p>
+
+        <div class="capabilities-grid">
+          <article class="capability-card capability-card--primary reveal">
+            <div class="photo capability-photo">
+              <img src="https://picsum.photos/seed/chapers-build-02/800/1000" alt="Close-up of a hand-built interface in progress on a studio monitor" width="800" height="1000" loading="lazy" decoding="async">
+              <p class="photo-caption">In progress — client build</p>
+            </div>
+            <div class="capability-primary-body">
+              <p class="mono cap-index">01</p>
+              <h3>Website Design &amp; Development</h3>
+              <p>Fast, accessible, built-to-last websites — engineered for
+                speed and conversion, not just good looks. Hand-built, no
+                page-builder bloat.</p>
+            </div>
+          </article>
+
+          <div class="capability-list">
+            <article class="capability-card reveal">
+              <p class="mono cap-index">02</p>
+              <h3>UI / UX Design</h3>
+              <p>Interfaces engineered for certainty at every interaction —
+                clear hierarchy, honest states, zero guesswork.</p>
+            </article>
+            <article class="capability-card reveal">
+              <p class="mono cap-index">03</p>
+              <h3>SEO &amp; Growth</h3>
+              <p>Findability engineered in from the first line of code,
+                not patched on after launch.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 — TENSION / THE STANDARD ============
+         Full-bleed field of evenly spaced lines, edge to edge — not a bordered
+         "demo" box. Move the cursor through it: nearby lines bow toward the
+         pointer under tension; release, and they return to exactly their
+         original position. That's the whole idea made physical — precision
+         isn't the absence of pressure, it's what holds when the pressure
+         is gone. No labels, no explanatory copy beyond one line. -->
+    <section class="beat beat-tension" id="principles" data-section-label="SEC 04/09 — TENSION" aria-labelledby="tension-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>The standard</p>
+        <h2 id="tension-heading" class="beat-title reveal">Every line ends exactly where it should.</h2>
+      </div>
+      <div class="tension-field" id="tension-field" role="img" aria-label="A field of vertical lines that bend toward the cursor under tension and return precisely to their original position when released.">
+        <svg id="tension-svg" class="tension-svg" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <p class="tension-tag mono" aria-hidden="true">Structural integrity — 100%</p>
+      </div>
+    </section>
+
+    <!-- ============ 05 — MANIFESTO INTERSTITIAL ============ -->
+    <section class="beat beat-manifesto" data-section-label="SEC 05/09 — MANIFESTO" aria-label="Manifesto">
+      <div class="manifesto-panel panel-architecture" aria-hidden="true">
+        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" class="panel-svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0d1f18"/>
+              <stop offset="60%" stop-color="#0A0B0D"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="600" fill="url(#g1)"/>
+          <g stroke="#3DFFAB" stroke-opacity="0.35" stroke-width="1.2" fill="none">
+            <path d="M60 600 L60 220 L220 60 L400 60 L400 600"/>
+            <path d="M400 600 L400 180 L560 60 L740 60 L740 600"/>
+            <path d="M60 340 H400 M400 300 H740"/>
+          </g>
+        </svg>
+      </div>
+      <div class="container manifesto-inner">
+        <p class="manifesto-statement reveal">
+          We don't decorate businesses.<br>
+          We give them <span class="accent-text">structure</span> they can stand on.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 06 — PAUSE ============ -->
+    <section class="beat beat-pause" data-section-label="SEC 06/09 — RESULT" aria-label="Highlighted result">
+      <div class="panel panel-pause" aria-hidden="true">
+        <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" class="panel-svg">
+          <defs>
+            <radialGradient id="g2" cx="70%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#123526"/>
+              <stop offset="100%" stop-color="#0A0B0D"/>
+            </radialGradient>
+          </defs>
+          <rect width="800" height="500" fill="url(#g2)"/>
+        </svg>
+      </div>
+      <div class="container pause-inner">
+        <p class="pause-number reveal">0.6s</p>
+        <p class="pause-line reveal">Average load time across every site we ship.</p>
+      </div>
+    </section>
+
+    <!-- ============ 07 — WORK (asymmetric) ============ -->
+    <section class="beat beat-work" id="work" data-section-label="SEC 07/09 — WORK" aria-labelledby="work-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Results</p>
+        <h2 id="work-heading" class="beat-title reveal">What conviction looks like in practice.</h2>
+
+        <div class="work-grid">
+          <article class="work-feature reveal">
+            <div class="photo work-photo-a">
+              <img src="https://picsum.photos/seed/chapers-work-clinic/1200/1000" alt="Waiting room of a regional healthcare clinic, redesigned digital-first" width="1200" height="1000" loading="lazy" decoding="async">
+              <p class="photo-caption">Case 01 — Regional Health Group</p>
+            </div>
+            <p class="mono cap-index">01 — Healthcare</p>
+            <p class="work-metric">+212%</p>
+            <h3>Organic traffic, six months</h3>
+            <p>A full presence rebuild for a regional healthcare provider —
+              structure, speed, and content working as one system.</p>
+          </article>
+
+          <article class="work-minor reveal">
+            <div class="photo work-photo-b">
+              <img src="https://picsum.photos/seed/chapers-work-retail/500/360" alt="Product shelving in a retail storefront mid photo-shoot for the new site" width="500" height="360" loading="lazy" decoding="async">
+            </div>
+            <p class="mono cap-index">02 — Retail</p>
+            <p class="work-metric-sm">4.8s → 0.6s</p>
+            <h3>Load time, 40-page migration</h3>
+          </article>
+
+          <article class="work-minor reveal">
+            <div class="photo work-photo-b">
+              <img src="https://picsum.photos/seed/chapers-work-hotel/500/360" alt="Boutique hotel lobby, subject of a booking-flow redesign" width="500" height="360" loading="lazy" decoding="async">
+            </div>
+            <p class="mono cap-index">03 — Hospitality</p>
+            <p class="work-metric-sm">3.1×</p>
+            <h3>Booking conversion rate</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 — TEAM (editorial) ============ -->
+    <section class="beat beat-team" id="team" data-section-label="SEC 08/09 — TEAM" aria-labelledby="team-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Who builds it</p>
+        <h2 id="team-heading" class="beat-title reveal">Specialists, not generalists.</h2>
+      </div>
+
+      <div class="team-editorial">
+        <article class="team-profile reveal">
+          <div class="container team-profile-inner">
+            <div class="photo panel-portrait">
+              <img src="https://picsum.photos/seed/chapers-founder/600/760" alt="Portrait of the studio lead" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+            <div class="team-copy">
+              <p class="mono cap-index">01 — Founder / Systems</p>
+              <h3>Studio lead</h3>
+              <p class="team-quote">"A site is finished when nothing on it
+                could be argued with."</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="team-profile reverse reveal">
+          <div class="container team-profile-inner reverse">
+            <div class="team-copy">
+              <p class="mono cap-index">02 — Design</p>
+              <h3>Principal designer</h3>
+              <p class="team-quote">"Restraint is the hardest skill to bill
+                for and the easiest one to spot."</p>
+            </div>
+            <div class="photo panel-portrait">
+              <img src="https://picsum.photos/seed/chapers-design-lead/600/760" alt="Portrait of the principal designer" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </article>
+
+        <article class="team-profile reveal">
+          <div class="container team-profile-inner">
+            <div class="photo panel-portrait">
+              <img src="https://picsum.photos/seed/chapers-eng-lead/600/760" alt="Portrait of the lead engineer" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+            <div class="team-copy">
+              <p class="mono cap-index">03 — Engineering</p>
+              <h3>Lead engineer</h3>
+              <p class="team-quote">"Performance isn't a metric we hit
+                once. It's a constraint we design under."</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 09 — CTA ============ -->
+    <section class="beat beat-cta" id="contact" data-section-label="SEC 09/09 — CONTACT" aria-labelledby="cta-heading">
+      <div class="cta-split">
+        <div class="cta-statement">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Start a project</p>
+          <h2 id="cta-heading" class="cta-title reveal">Tell us where it<br>doesn't feel right yet.</h2>
+          <p class="hero-lead reveal">A short call is enough to know if
+            we're a fit. No deck, no sales pitch.</p>
+        </div>
+        <form class="contact-form reveal" novalidate>
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-required="true">
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" aria-describedby="email-hint">
+            <span id="email-hint" class="field-hint">We'll reply within one business day.</span>
+          </div>
+          <div class="form-field">
+            <label for="message">What are you trying to fix or build?</label>
+            <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <span>Send message</span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-wordmark">Chaper<span class="accent-text">'</span>s Labs</p>
+    </div>
+    <div class="container footer-inner">
+      <p class="mono footer-status">SYSTEM STATUS — <span class="accent-text">LIVE</span> · ACCEPTING NEW PROJECTS</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <div>
+          <p class="mono footer-heading">Studio</p>
+          <ul>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono footer-heading">Contact</p>
+          <ul>
+            <li><a href="mailto:hello@chaperslabs.com">hello@chaperslabs.com</a></li>
+            <li><a href="#contact">Start a project</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; <span id="year"></span> Chaper's Labs. All rights reserved.</p>
+      <p class="footer-legal"><a href="#top">Privacy</a> · <a href="#top">Terms</a></p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
