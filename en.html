@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaper's Labs — Not a website. A system.</title>
+  <meta name="description" content="Chaper's Labs engineers websites, UI/UX, and SEO systems for small and medium-sized businesses, with the precision of a product team.">
+  <meta name="theme-color" content="#0A0B0D">
+  <meta property="og:title" content="Chaper's Labs — Not a website. A system.">
+  <meta property="og:description" content="Enterprise-grade websites, UI/UX design, and SEO for small and medium-sized businesses.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon: uses the existing navbar brand mark (the corner-bracket +
+       green dot logo), rendered on a dark tile so it reads correctly
+       against any browser tab theme. This SVG is currently the only
+       favicon asset in the project — apple-touch-icon points at the same
+       file for now. When dedicated multi-resolution PNG/ICO assets are
+       produced, add them here (e.g. rel="icon" sizes="32x32"/"16x16" PNGs,
+       a favicon.ico for legacy browsers, and a dedicated
+       apple-touch-icon.png at 180×180) without needing to touch anything
+       else in this file. -->
+  <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/tobikadachi937/chaperslab/bf9422a3a0b680d572fa24a44383b240688be81d/favicon.svg">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tobikadachi937/chaperslab/bf9422a3a0b680d572fa24a44383b240688be81d/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Signature interaction: reticle cursor (desktop, fine-pointer only; JS adds .is-active) -->
+  <div class="reticle" aria-hidden="true" id="reticle">
+    <span class="reticle-corner tl"></span>
+    <span class="reticle-corner tr"></span>
+    <span class="reticle-corner bl"></span>
+    <span class="reticle-corner br"></span>
+  </div>
+
+  <!-- Live system readout — fixed, functional, not decorative -->
+  <div class="sys-readout mono" id="sys-readout" aria-hidden="true">
+    <span id="sys-section">SEC 01/09</span>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+    <div class="header-inner">
+      <a href="#top" class="logo" aria-label="Chaper's Labs — home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square">
+            <path d="M6 14 V6 H14"/><path d="M26 6 H34 V14"/>
+            <path d="M6 26 V34 H14"/><path d="M34 26 V34 H26"/>
+          </g>
+          <circle cx="20" cy="20" r="3" fill="#3DFFAB"/>
+        </svg>
+        <span class="logo-word">Chaper<span class="accent-text">'</span>s Labs</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#principles">Studio</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="index.html" lang="es" hreflang="es">ES</a><span class="lang-switch-sep" aria-hidden="true">/</span><a href="en.html" lang="en" hreflang="en" aria-current="page">EN</a>
+        </div>
+        <a class="btn btn-primary" href="#contact"><span>Start a project</span></a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+          <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- Mobile full-screen nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-head container">
+      <a href="#top" class="logo" aria-label="Chaper's Labs — home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square">
+            <path d="M6 14 V6 H14"/><path d="M26 6 H34 V14"/>
+            <path d="M6 26 V34 H14"/><path d="M34 26 V34 H26"/>
+          </g>
+          <circle cx="20" cy="20" r="3" fill="#3DFFAB"/>
+        </svg>
+        <span class="logo-word">Chaper<span class="accent-text">'</span>s Labs</span>
+      </a>
+      <button class="menu-close" id="menu-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile">
+      <ol class="mobile-nav-list">
+        <li><span class="mono idx">01</span><a href="#capabilities">Capabilities</a></li>
+        <li><span class="mono idx">02</span><a href="#work">Work</a></li>
+        <li><span class="mono idx">03</span><a href="#team">Team</a></li>
+        <li><span class="mono idx">04</span><a href="#principles">Studio</a></li>
+        <li><span class="mono idx">05</span><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+    <div class="mobile-nav-lang">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <a href="index.html" lang="es" hreflang="es">ES</a><span class="lang-switch-sep" aria-hidden="true">/</span><a href="en.html" lang="en" hreflang="en" aria-current="page">EN</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ 01 — OPENING ============
+         Editorial split instead of a full-bleed image-behind-text hero: copy sits
+         on flat ground at full contrast, the (temporary) image is confined to a
+         bordered "plate" with its own crop-mark corners and a FIG. tag — a
+         deliberate framing device, not a backdrop. Swapping the artwork later
+         only changes what's inside the plate; the composition doesn't move. -->
+    <section class="beat beat-opening" id="top" data-section-label="SEC 01/09 — OPEN" aria-label="Introduction">
+      <div class="opening-media" aria-hidden="true">
+        <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/pc.webp" alt="" width="1800" height="2200" fetchpriority="high" decoding="async">
+      </div>
+      <div class="opening-frame" aria-hidden="true">
+        <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
+      </div>
+      <p class="opening-kicker mono reveal"><span class="dot" aria-hidden="true"></span>Chaper's Labs — Studio 001</p>
+      <div class="container opening-inner">
+        <h1 class="opening-title">
+          <span class="line reveal">Certainty,</span>
+          <span class="line reveal">engineered</span>
+          <span class="line reveal">in <span class="accent-text">public.</span></span>
+        </h1>
+        <div class="opening-connector reveal" aria-hidden="true"></div>
+        <div class="opening-meta reveal">
+          <p class="opening-lead">Chaper's Labs — websites, UI/UX, and SEO systems for
+            businesses that are done hoping their digital presence works.</p>
+          <a class="btn btn-primary" href="#contact"><span>Start a project</span></a>
+        </div>
+      </div>
+      <div class="scroll-cue reveal" aria-hidden="true">
+        <span class="mono">SCROLL</span>
+        <span class="scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ============ 02 — THE SYSTEM (signature experience) ============
+         CONTAINED → SCROLL → RELEASE → ORGANIC DISPERSION → SETTLED, driven
+         directly by scroll position. STRUCTURAL REWRITE (this round): the
+         render surface (#system-visual, holding both canvases) is now a
+         SEPARATE, JS-measured absolutely-positioned layer, decoupled from
+         the content box (#system-burst, which still just holds the
+         eyebrow/heading/stage-list in normal flow and determines the
+         section's actual height). Every previous attempt tied the canvas's
+         size to CSS bleed values (guessed pixel amounts) layered on top of
+         a content-driven box — fragile, and evidently still leaving real
+         gaps. #system-visual is instead measured directly in main.js from
+         the actual bottom of Hero and the actual top of #performance, so it
+         is GUARANTEED to span that exact region regardless of how tall the
+         content in between is, on any breakpoint. Hero and #performance
+         both carry z-index:2 so their own content always paints above this
+         layer, even though it visually reaches into the empty space just
+         before/after them. No second Canvas, no new animation — same two
+         canvases, same particle system, just given the correct render area. -->
+    <section class="beat beat-system-section" id="system-section" data-section-label="SEC 02/09 — THE SYSTEM" aria-labelledby="system-heading">
+      <div class="system-visual" id="system-visual" aria-hidden="true">
+        <p class="system-burst-readout mono" id="system-burst-readout" aria-hidden="true">CONTAINED</p>
+        <canvas class="system-cloud" id="system-cloud"></canvas>
+        <canvas class="system-cloud-sharp" id="system-cloud-sharp"></canvas>
+      </div>
+
+      <div class="system-burst" id="system-burst" role="img" aria-label="A dense contained mass releasing into an organic drifting cloud of particulate matter as the page scrolls through Discover, Design, Build and Grow, before settling into a lasting, sparse trace.">
+        <div class="container">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>The system</p>
+          <h2 id="system-heading" class="beat-title reveal">A fixed sequence. No open scopes.</h2>
+        </div>
+
+        <div class="container">
+          <ol class="system-field" id="system-field">
+            <li class="system-node" style="--i:0;">
+              <p class="mono cap-index">01 / 04</p>
+              <h3>Discover</h3>
+              <p>We map the business, the competition, and where your
+                current presence is quietly costing you customers.</p>
+            </li>
+            <li class="system-node" style="--i:1;">
+              <p class="mono cap-index">02 / 04</p>
+              <h3>Design</h3>
+              <p>A complete visual and interaction system, validated
+                against real references before a single page is built.</p>
+            </li>
+            <li class="system-node" style="--i:2;">
+              <p class="mono cap-index">03 / 04</p>
+              <h3>Build</h3>
+              <p>Hand-built, performance-first, accessible code — no
+                bloated dependencies, nothing shipped we can't explain.</p>
+            </li>
+            <li class="system-node" style="--i:3;">
+              <p class="mono cap-index">04 / 04</p>
+              <h3>Grow</h3>
+              <p>Launch is day one. SEO, iteration, and measurement
+                continue on a fixed cadence after that.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 — PERFORMANCE ============
+         Matches the approved reference screenshot: full-section crop-mark
+         frame (generously inset from the section's own edges, not hugging
+         the number — reuses the Hero's plate-frame device), a visible
+         green radial backdrop, and no eyebrow line — just the reading and
+         its caption. The number animates once (0.0s -> 0.6s, ~2.8s,
+         confident ease-out deceleration) when it scrolls into view via
+         IntersectionObserver, then holds permanently; reduced motion shows
+         0.6s immediately. -->
+    <section class="beat beat-performance" id="performance" data-section-label="SEC 03/09 — RESULT" aria-label="0.6 seconds average load time across every site we ship.">
+      <div class="performance-frame" aria-hidden="true">
+        <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
+      </div>
+      <div class="container performance-inner">
+        <p class="performance-number" id="performance-number" aria-hidden="true">0.0s</p>
+        <p class="performance-line" aria-hidden="true">Average load time across every site we ship.</p>
+      </div>
+    </section>
+
+    <!-- ============ 04 — CAPABILITIES: THREE LAYERS / ONE PRODUCT ============
+         A/B alternative to the Interactive Blueprint. Three translucent SVG
+         layers (UI/UX, structure, SEO) share one coordinate space and are
+         stacked with 'lighter'-style overlap by default — that combined
+         overlap IS the "one product" state, no extra content needed to
+         communicate it. Isolating a capability pushes the OTHER two layers
+         aside (reduced opacity, offset, slight rotation) and brings the
+         selected one to full strength; returning to "All layers" realigns
+         everything. Hover previews on fine pointers, click/tap persists,
+         full keyboard support — not scroll-driven, since The System already
+         owns the page's scroll-driven interaction. -->
+    <section class="beat beat-capabilities" id="capabilities" data-section-label="SEC 04/09 — CAPABILITIES" aria-labelledby="cap-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>What we build</p>
+        <h2 id="cap-heading" class="beat-title reveal">Three layers. One product.</h2>
+        <p class="beat-subtitle reveal">Design, development and growth aren't separate
+          hand-offs here — they're layers of the same system, built to align.</p>
+
+        <div class="layers-widget reveal">
+          <div class="layers-controls" role="tablist" aria-label="Product layers" aria-orientation="vertical">
+            <button type="button" class="layers-tab is-active" role="tab" id="tl-tab-1"
+              aria-selected="true" aria-controls="layers-stage" data-target="1" tabindex="0">
+              <span class="mono cap-index">01</span>
+              <span class="layers-tab-title">Website Design &amp; Development</span>
+              <span class="layers-tab-desc">Fast, responsive websites — designed to
+                look sharp, work flawlessly, and scale with your business.</span>
+            </button>
+            <button type="button" class="layers-tab" role="tab" id="tl-tab-2"
+              aria-selected="false" aria-controls="layers-stage" data-target="2" tabindex="-1">
+              <span class="mono cap-index">02</span>
+              <span class="layers-tab-title">UI / UX Design</span>
+              <span class="layers-tab-desc">Wireframes and flow, resolved before
+                a single pixel is final.</span>
+            </button>
+            <button type="button" class="layers-tab" role="tab" id="tl-tab-3"
+              aria-selected="false" aria-controls="layers-stage" data-target="3" tabindex="-1">
+              <span class="mono cap-index">03</span>
+              <span class="layers-tab-title">SEO &amp; Growth</span>
+              <span class="layers-tab-desc">Built to load fast, rank well, and help
+                the right people find your business.</span>
+            </button>
+            <button type="button" class="layers-tab layers-tab-all" role="tab" id="tl-tab-all"
+              aria-selected="false" aria-controls="layers-stage" data-target="all" tabindex="-1">
+              <span class="layers-tab-title">All layers, combined</span>
+              <span class="layers-tab-desc">This is why we don't treat them as
+                separate problems.</span>
+            </button>
+          </div>
+
+          <div class="layers-stage" id="layers-stage" data-active="1" role="img" aria-label="An exploded technical diagram of three product layers — website structure, the user journey through it, and SEO discoverability — that align into one combined view when no single layer is isolated.">
+            <div class="layers-header">
+              <p class="layers-readout mono" id="layers-readout" aria-hidden="true">LAYER 01 — WEBSITE</p>
+            </div>
+            <div class="layers-canvas">
+              <svg class="layers-svg" viewBox="0 0 480 380" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <marker id="tlArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="tl-arrow-fill"></path>
+                </marker>
+              </defs>
+
+              <g class="tl-layer" data-layer="2">
+                <circle cx="240" cy="24" r="5" class="tl-node-dot"></circle>
+                <path d="M240 29 V52" class="tl-line" marker-end="url(#tlArrow)"></path>
+                <rect x="170" y="56" width="140" height="38" rx="4" class="tl-shape tl-accent-shape"></rect>
+                <text x="240" y="79" text-anchor="middle" class="tl-label">LANDING</text>
+                <path d="M200 94 Q150 112 140 130" class="tl-flow-alt" marker-end="url(#tlArrow)"></path>
+                <path d="M280 94 Q330 112 340 130" class="tl-flow-primary" marker-end="url(#tlArrow)"></path>
+                <circle cx="140" cy="150" r="24" class="tl-node"></circle>
+                <text x="140" y="154" text-anchor="middle" class="tl-label">EXPLORE</text>
+                <circle cx="340" cy="150" r="24" class="tl-node tl-node-primary"></circle>
+                <circle cx="340" cy="150" r="30" class="tl-tap-ring"></circle>
+                <text x="340" y="154" text-anchor="middle" class="tl-label">ACTION</text>
+                <path d="M140 174 V212" class="tl-flow-alt" marker-end="url(#tlArrow)"></path>
+                <path d="M340 174 V212" class="tl-flow-primary" marker-end="url(#tlArrow)"></path>
+                <rect x="90" y="216" width="100" height="36" rx="4" class="tl-shape"></rect>
+                <text x="140" y="238" text-anchor="middle" class="tl-label">DETAIL</text>
+                <rect x="290" y="216" width="100" height="36" rx="4" class="tl-shape tl-accent-shape"></rect>
+                <text x="340" y="238" text-anchor="middle" class="tl-label">FORM</text>
+                <path d="M170 252 Q200 276 220 292" class="tl-flow-alt" marker-end="url(#tlArrow)"></path>
+                <path d="M340 252 Q300 276 262 292" class="tl-flow-primary" marker-end="url(#tlArrow)"></path>
+                <rect x="180" y="296" width="120" height="38" rx="19" class="tl-shape tl-accent-shape"></rect>
+                <text x="240" y="320" text-anchor="middle" class="tl-label">SUCCESS</text>
+              </g>
+
+              <g class="tl-layer" data-layer="1">
+                <rect x="30" y="20" width="420" height="340" rx="4" class="tl-shape"></rect>
+                <circle cx="46" cy="34" r="2.5" class="tl-dot"></circle>
+                <circle cx="58" cy="34" r="2.5" class="tl-dot"></circle>
+                <circle cx="70" cy="34" r="2.5" class="tl-dot"></circle>
+                <line x1="30" y1="44" x2="450" y2="44" class="tl-line-thin"></line>
+                <text x="42" y="64" class="tl-label">LOGO</text>
+                <text x="342" y="64" class="tl-label">NAV</text>
+                <text x="378" y="64" class="tl-label">NAV</text>
+                <text x="414" y="64" class="tl-label">NAV</text>
+                <line x1="30" y1="76" x2="450" y2="76" class="tl-line-thin"></line>
+                <rect x="42" y="90" width="396" height="88" class="tl-shape tl-accent-shape"></rect>
+                <line x1="140" y1="90" x2="140" y2="178" class="tl-grid"></line>
+                <line x1="240" y1="90" x2="240" y2="178" class="tl-grid"></line>
+                <line x1="340" y1="90" x2="340" y2="178" class="tl-grid"></line>
+                <text x="52" y="108" class="tl-label">HERO</text>
+                <rect x="42" y="194" width="192" height="100" class="tl-shape"></rect>
+                <rect x="246" y="194" width="192" height="100" class="tl-shape"></rect>
+                <text x="52" y="212" class="tl-label">CONTENT</text>
+                <text x="256" y="212" class="tl-label">CONTENT</text>
+                <rect x="42" y="310" width="396" height="34" class="tl-shape"></rect>
+                <text x="52" y="331" class="tl-label">CTA / FOOTER</text>
+                <text x="440" y="108" text-anchor="end" class="tl-label tl-fine">RESPONSIVE</text>
+                <text x="440" y="212" text-anchor="end" class="tl-label tl-fine">COMPONENT</text>
+                <text x="440" y="331" text-anchor="end" class="tl-label tl-fine">SEMANTIC</text>
+              </g>
+
+              <g class="tl-layer" data-layer="3">
+                <rect x="150" y="18" width="180" height="32" rx="16" class="tl-shape"></rect>
+                <circle cx="286" cy="34" r="6" class="tl-shape-thin"></circle>
+                <line x1="290.5" y1="38.5" x2="298" y2="46" class="tl-line"></line>
+                <text x="164" y="39" class="tl-label">SEARCH</text>
+                <path d="M240 52 V72" class="tl-line" marker-end="url(#tlArrow)"></path>
+                <rect x="140" y="80" width="200" height="82" rx="3" class="tl-shape tl-accent-shape"></rect>
+                <line x1="140" y1="94" x2="340" y2="94" class="tl-line-thin"></line>
+                <circle cx="150" cy="87" r="2" class="tl-dot"></circle>
+                <circle cx="158" cy="87" r="2" class="tl-dot"></circle>
+                <circle cx="166" cy="87" r="2" class="tl-dot"></circle>
+                <text x="150" y="120" class="tl-label">YOUR WEBSITE</text>
+                <path d="M188 164 Q150 190 120 204" class="tl-branch"></path>
+                <path d="M240 164 V204" class="tl-branch"></path>
+                <path d="M292 164 Q330 190 360 204" class="tl-branch"></path>
+                <text x="120" y="218" text-anchor="middle" class="tl-label tl-fine">CONTENT</text>
+                <text x="240" y="218" text-anchor="middle" class="tl-label tl-fine">PAGES</text>
+                <text x="360" y="218" text-anchor="middle" class="tl-label tl-fine">STRUCTURE</text>
+                <path d="M240 226 V246" class="tl-line" marker-end="url(#tlArrow)"></path>
+                <text x="240" y="264" text-anchor="middle" class="tl-label">INDEXED &amp; DISCOVERABLE</text>
+                <path d="M240 274 V294" class="tl-line" marker-end="url(#tlArrow)"></path>
+                <rect x="150" y="302" width="180" height="34" rx="4" class="tl-shape tl-accent-shape"></rect>
+                <text x="240" y="324" text-anchor="middle" class="tl-label">VISIBILITY</text>
+              </g>
+              </svg>
+            </div>
+            <p class="layers-footer mono" id="layers-footer" aria-hidden="true">DESIGNED &amp; BUILT — BREAKPOINT SM / MD / LG</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 — TENSION / THE STANDARD ============
+         Full-bleed field of evenly spaced lines, edge to edge — not a bordered
+         "demo" box. Move the cursor through it: nearby lines bow toward the
+         pointer under tension; release, and they return to exactly their
+         original position. That's the whole idea made physical — precision
+         isn't the absence of pressure, it's what holds when the pressure
+         is gone. No labels, no explanatory copy beyond one line. -->
+    <section class="beat beat-tension" id="principles" data-section-label="SEC 05/09 — TENSION" aria-labelledby="tension-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>The standard</p>
+        <h2 id="tension-heading" class="beat-title reveal">Every line ends exactly where it should.</h2>
+      </div>
+      <div class="tension-field" id="tension-field" role="img" aria-label="A field of vertical lines that bend toward the cursor under tension and return precisely to their original position when released.">
+        <svg id="tension-svg" class="tension-svg" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <p class="tension-tag mono" aria-hidden="true">Structural integrity — 100%</p>
+      </div>
+    </section>
+
+    <!-- ============ 06 — WORK (asymmetric) ============ -->
+    <!-- ============ 06 — SELECTED WORK (3D project carousel) ============
+         Replaces the old stats/results grid. One active project dominates
+         the center; the previous/next projects stay partially visible,
+         rotated and pushed back in Z-space via CSS 3D transforms — the
+         depth/interaction feel is inspired by a reference video (center
+         dominant, sides receding, physical transition), reinterpreted
+         entirely in Chaper's Labs' own thin-line/mono/editorial language,
+         not the reference's visual design. Only the active slide carries
+         full information (aria-hidden toggles on the rest); screenshots
+         are placeholders — obviously so — until real projects replace
+         them, which this markup is structured to make straightforward. -->
+    <section class="beat beat-work" id="work" data-section-label="SEC 06/09 — SELECTED WORK" aria-labelledby="work-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Selected work</p>
+        <h2 id="work-heading" class="beat-title reveal">What conviction looks like in practice.</h2>
+      </div>
+
+      <div class="work-carousel" id="work-carousel" role="region" aria-roledescription="carousel" aria-label="Selected client projects" tabindex="0">
+        <div class="work-carousel-stage" id="work-stage">
+          <div class="work-slide" data-index="0" aria-hidden="true">
+            <div class="work-slide-frame">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/project_3_1440x960.webp" alt="Fundación La Libertad website" width="1440" height="960" loading="lazy" decoding="async">
+              <span class="work-slide-lock" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+          <div class="work-slide" data-index="1" aria-hidden="true">
+            <div class="work-slide-frame">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/project_2_1440x960.webp" alt="Parker &amp; Sons website" width="1440" height="960" loading="lazy" decoding="async">
+              <span class="work-slide-lock" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+          <div class="work-slide" data-index="2" aria-hidden="true">
+            <div class="work-slide-frame">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/project_4_1440x960.webp" alt="Moonleaf Cleaning website" width="1440" height="960" loading="lazy" decoding="async">
+              <span class="work-slide-lock" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+          <div class="work-slide" data-index="3" aria-hidden="true">
+            <div class="work-slide-frame">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/project_1_1440x960.webp" alt="Boothe's website" width="1440" height="960" loading="lazy" decoding="async">
+              <span class="work-slide-lock" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single info block, normal document flow — populated from
+             WORK_PROJECTS in main.js whenever the active index changes.
+             This is what keeps image and information genuinely adjacent
+             (no fixed-height 3D box for text to overflow out of) and makes
+             adding/removing projects a one-line data change, not a markup
+             rewrite. -->
+        <div class="work-info" id="work-info">
+          <h3 id="work-info-title">Fundación La Libertad</h3>
+          <p class="work-slide-category" id="work-info-category" hidden></p>
+          <p class="work-slide-desc" id="work-info-desc">A community park and center offering spaces for sports, education, and a wide range of courses for the local community.</p>
+          <a class="work-slide-cta" href="https://lalibertadcr.org/" id="work-info-cta" target="_blank" rel="noopener noreferrer">
+            <span class="work-slide-cta-word">View project</span>
+            <svg class="work-cta-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path class="work-cta-frame" d="M3 6 L3 13 L9 13"></path>
+              <path class="work-cta-vector" d="M5 11 L13 3"></path>
+              <path class="work-cta-vector-tip" d="M8 3 L13 3 L13 8"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="work-nav" role="group" aria-label="Carousel navigation">
+          <button type="button" class="work-rail work-rail-prev" id="work-prev" aria-label="Previous project">
+            <svg class="work-rail-svg" width="42" height="16" viewBox="0 0 42 16" aria-hidden="true">
+              <line class="work-rail-base" x1="16" y1="8" x2="40" y2="8"></line>
+              <line class="work-rail-fill" x1="40" y1="8" x2="16" y2="8" pathLength="1"></line>
+              <line class="work-rail-notch" x1="26" y1="5" x2="26" y2="11"></line>
+              <path class="work-rail-tip" d="M13 2.5 L3 8 L13 13.5"></path>
+            </svg>
+          </button>
+          <p class="work-position mono" aria-hidden="true">
+            <span id="work-position-current">01</span><span class="work-position-sep"></span><span id="work-position-total">04</span>
+          </p>
+          <button type="button" class="work-rail work-rail-next" id="work-next" aria-label="Next project">
+            <svg class="work-rail-svg" width="42" height="16" viewBox="0 0 42 16" aria-hidden="true">
+              <line class="work-rail-base" x1="2" y1="8" x2="26" y2="8"></line>
+              <line class="work-rail-fill" x1="2" y1="8" x2="26" y2="8" pathLength="1"></line>
+              <line class="work-rail-notch" x1="16" y1="5" x2="16" y2="11"></line>
+              <path class="work-rail-tip" d="M29 2.5 L39 8 L29 13.5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 07 — MANIFESTO INTERSTITIAL (moved: now between Work/Results and Team) ============ -->
+    <section class="beat beat-manifesto" data-section-label="SEC 07/09 — MANIFESTO" aria-label="Manifesto">
+      <div class="manifesto-panel panel-architecture" aria-hidden="true">
+        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" class="panel-svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0d1f18"/>
+              <stop offset="60%" stop-color="#0A0B0D"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="600" fill="url(#g1)"/>
+          <g stroke="#3DFFAB" stroke-opacity="0.35" stroke-width="1.2" fill="none">
+            <path d="M60 600 L60 220 L220 60 L400 60 L400 600"/>
+            <path d="M400 600 L400 180 L560 60 L740 60 L740 600"/>
+            <path d="M60 340 H400 M400 300 H740"/>
+          </g>
+        </svg>
+      </div>
+      <div class="container manifesto-inner">
+        <p class="manifesto-statement reveal">
+          We don't decorate businesses.<br>
+          We give them <span class="accent-text">structure</span> they can stand on.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 08 — TEAM (editorial) ============ -->
+    <section class="beat beat-team" id="team" data-section-label="SEC 08/09 — TEAM" aria-labelledby="team-heading">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Who builds it</p>
+        <h2 id="team-heading" class="beat-title reveal">Specialists, not generalists.</h2>
+      </div>
+
+      <div class="team-editorial">
+        <article class="team-profile reveal">
+          <div class="container team-profile-inner">
+            <div class="photo panel-portrait">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/ChatGPT%20Image%20Aug%2011%2C%202026%2C%2005_55_59%20PM.png" alt="Esteban Rodriguez, Founder at Chaper's Labs" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+            <div class="team-copy">
+              <p class="mono cap-index">01 — Founder</p>
+              <h3>Esteban Rodriguez</h3>
+              <p class="team-quote">"A site is finished when nothing on it
+                could be argued with."</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="team-profile reverse reveal">
+          <div class="container team-profile-inner reverse">
+            <div class="team-copy">
+              <p class="mono cap-index">02 — Designer</p>
+              <h3>Andy Segura</h3>
+              <p class="team-quote">"Restraint is the hardest skill to bill
+                for and the easiest one to spot."</p>
+            </div>
+            <div class="photo panel-portrait">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/diseno.png" alt="Andy Segura, Designer at Chaper's Labs" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </article>
+
+        <article class="team-profile reveal">
+          <div class="container team-profile-inner">
+            <div class="photo panel-portrait">
+              <img src="https://raw.githubusercontent.com/tobikadachi937/chaperslab/refs/heads/main/ChatGPT%20Image%20Aug%2011%2C%202026%2C%2005_33_24%20PM.png" alt="Claudia Rojas, Engineer at Chaper's Labs" width="600" height="760" loading="lazy" decoding="async">
+            </div>
+            <div class="team-copy">
+              <p class="mono cap-index">03 — Engineer</p>
+              <h3>Claudia Rojas</h3>
+              <p class="team-quote">"Performance isn't a metric we hit
+                once. It's a constraint we design under."</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 09 — CTA ============ -->
+    <section class="beat beat-cta" id="contact" data-section-label="SEC 09/09 — CONTACT" aria-labelledby="cta-heading">
+      <div class="cta-split">
+        <div class="cta-statement">
+          <p class="eyebrow reveal"><span class="dot" aria-hidden="true"></span>Start a project</p>
+          <h2 id="cta-heading" class="cta-title reveal">Tell us where it<br>doesn't feel right yet.</h2>
+          <p class="hero-lead reveal">A short call is enough to know if
+            we're a fit. No deck, no sales pitch.</p>
+        </div>
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-required="true">
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" aria-describedby="email-hint">
+            <span id="email-hint" class="field-hint">We'll reply within one business day.</span>
+          </div>
+          <div class="form-field">
+            <label for="message">What are you trying to fix or build?</label>
+            <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="form-submit">
+            <span>Send message</span>
+          </button>
+          <div class="form-progress" id="form-progress" hidden aria-hidden="true"><span></span></div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+          <!-- Shown only on a genuinely successful submission response — see
+               main.js. Never displayed on a timer or unconditionally. -->
+          <div class="form-success" id="form-success" hidden>
+            <div class="form-success-marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="form-success-line" aria-hidden="true"></div>
+            <p class="form-success-title">Message received.</p>
+            <p class="form-success-sub">We'll get back to you soon.</p>
+            <button type="button" class="form-success-reset" id="form-success-reset">Send another message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-wordmark">Chaper<span class="accent-text">'</span>s Labs</p>
+    </div>
+    <div class="container footer-inner">
+      <p class="mono footer-status">SYSTEM STATUS — <span class="accent-text">LIVE</span> · ACCEPTING NEW PROJECTS</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <div>
+          <p class="mono footer-heading">Studio</p>
+          <ul>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono footer-heading">Contact</p>
+          <ul>
+            <li><a href="mailto:hello@chaperslabs.com">hello@chaperslabs.com</a></li>
+            <li><a href="#contact">Start a project</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; <span id="year"></span> Chaper's Labs. All rights reserved.</p>
+      <p class="footer-legal"><a href="#top">Privacy</a> · <a href="#top">Terms</a></p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg class="back-to-top-svg" width="14" height="26" viewBox="0 0 14 26" aria-hidden="true">
+      <line class="back-to-top-rail-base" x1="7" y1="10" x2="7" y2="24"></line>
+      <line class="back-to-top-rail-fill" x1="7" y1="24" x2="7" y2="10" pathLength="1"></line>
+      <path class="back-to-top-tip" d="M2 9 L7 2 L12 9"></path>
+    </svg>
+  </button>
+
+  <script src="main.js"></script>
+</body>
+</html>
