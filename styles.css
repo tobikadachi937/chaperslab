@@ -1,0 +1,1025 @@
+/* =========================================================
+   CHAPER'S LABS — HOMEPAGE V2
+   Editorial rhythm · Mobile-first · WCAG AA · Vanilla CSS
+   ========================================================= */
+
+/* ---------- TOKENS (unchanged — locked Design System) ---------- */
+:root {
+  --surface-0: #0A0B0D;
+  --surface-1: #111318;
+  --surface-2: #181B21;
+  --surface-3: #20242C;
+  --border-subtle: #262B33;
+  --border-strong: #57616F;
+  --text-primary: #F5F7FA;
+  --text-secondary: #B2B9C4;
+  --text-tertiary: #8A93A1;
+
+  --accent-core: #3DFFAB;
+  --accent-dim: #1E9C68;
+  --accent-warm: #FF8A4C;
+  --error: #FF6B6B;
+
+  --font-display: 'Space Grotesk', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
+  --space-5: 32px; --space-6: 48px; --space-7: 64px; --space-8: 96px; --space-9: 160px;
+
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px; --radius-full: 999px;
+
+  --ease-decisive: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-component: 300ms;
+
+  --content-max: 1320px;
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+body, h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+button, input, textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  background: var(--surface-0);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+html.nav-open, html.nav-open body { overflow: hidden; height: 100%; }
+
+.mono { font-family: var(--font-mono); }
+.accent-text { color: var(--accent-core); }
+
+/* ---------- ACCESSIBILITY ---------- */
+.skip-link {
+  position: absolute; top: -100px; left: var(--space-3);
+  background: var(--accent-core); color: var(--surface-0);
+  padding: 12px 20px; border-radius: var(--radius-sm); font-weight: 700;
+  z-index: 1000; transition: top var(--dur-micro) var(--ease-decisive);
+}
+.skip-link:focus { top: var(--space-3); }
+:focus-visible { outline: 2px solid var(--accent-core); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+/* ---------- LAYOUT ---------- */
+.container { width: 100%; max-width: var(--content-max); margin-inline: auto; padding-inline: 20px; }
+@media (min-width: 600px) { .container { padding-inline: 40px; } }
+@media (min-width: 1024px) { .container { padding-inline: 80px; } }
+
+/* Base rhythm: every section contributes ONE seam (top padding only) — the
+   gap you see between any two sections is a single value, not two paddings
+   stacked. This was the real inconsistency: sections that had both top and
+   bottom padding created ~2x-wide seams next to sections that only had a
+   top value, so the page alternated between tight and oversized gaps for
+   no reason tied to content. Min-height "pause" sections and the final CTA
+   are deliberate exceptions, called out where they're defined. */
+.beat { position: relative; padding-block: var(--space-8) 0; }
+@media (min-width: 1024px) { .beat { padding-block: var(--space-9) 0; } }
+
+.eyebrow {
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.15em;
+  font-size: 12px; color: var(--accent-core); display: inline-flex; align-items: center;
+  gap: 10px; margin-bottom: var(--space-3);
+}
+.eyebrow .dot { width: 6px; height: 6px; background: var(--accent-core); border-radius: 50%; box-shadow: 0 0 10px var(--accent-core); flex-shrink: 0; }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+.beat-title { font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; max-width: 700px; }
+.hero-lead { color: var(--text-secondary); font-size: 1.0625rem; max-width: 55ch; }
+
+.cap-index { color: var(--accent-core); font-size: 0.8125rem; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+  border-radius: var(--radius-md); font-weight: 600; font-size: 0.9375rem;
+  border: 1px solid transparent; cursor: pointer; min-height: 44px;
+  transition: transform var(--dur-micro) var(--ease-decisive), background var(--dur-micro) var(--ease-decisive);
+}
+.btn-primary { background: var(--accent-core); color: var(--surface-0); }
+.btn-primary:hover { background: #5BFFC0; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+/* ---------- SIGNATURE INTERACTION: RETICLE CURSOR ---------- */
+.reticle {
+  position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+  pointer-events: none; z-index: 2000; transform: translate(-50%, -50%);
+  opacity: 0; transition: opacity 200ms ease, width 200ms var(--ease-decisive), height 200ms var(--ease-decisive);
+}
+.reticle.is-active { opacity: 1; }
+.reticle.is-snapped { width: 46px; height: 46px; }
+.reticle-corner { position: absolute; width: 9px; height: 9px; border: 1.5px solid var(--accent-core); transition: border-color 150ms; }
+.reticle.is-snapped .reticle-corner { border-color: var(--text-primary); }
+.reticle-corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.reticle-corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.reticle-corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.reticle-corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+@media (hover: none), (pointer: coarse) { .reticle { display: none; } }
+
+/* ---------- SYSTEM READOUT ---------- */
+.sys-readout {
+  position: fixed; left: 20px; bottom: 20px; z-index: 90;
+  font-size: 11px; letter-spacing: 0.1em; color: var(--text-tertiary);
+  background: rgba(10,11,13,0.7); backdrop-filter: blur(8px);
+  padding: 8px 12px; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);
+  display: none;
+}
+@media (min-width: 900px) { .sys-readout { display: block; } }
+
+/* ---------- HEADER ---------- */
+.site-header { position: sticky; top: 0; z-index: 100; padding: var(--space-3) 0; }
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(17, 19, 24, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle); border-radius: var(--radius-lg);
+  padding: 14px 20px;
+  transition: padding var(--dur-component) var(--ease-decisive);
+}
+.site-header.is-scrolled .header-inner { padding: 10px 20px; background: rgba(17, 19, 24, 0.92); }
+
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem; white-space: nowrap; }
+.logo-mark { width: 26px; height: 26px; color: var(--text-primary); flex-shrink: 0; }
+/* Desktop-only brand presence bump (~23%) — tablet/mobile untouched. */
+@media (min-width: 1024px) {
+  .logo { gap: 12px; font-size: 1.3125rem; }
+  .logo-mark { width: 32px; height: 32px; }
+}
+
+.primary-nav { display: none; }
+.primary-nav ul { display: flex; gap: var(--space-5); }
+.primary-nav a { font-size: 0.9375rem; color: var(--text-secondary); transition: color var(--dur-micro); padding: 4px 2px; }
+.primary-nav a:hover { color: var(--text-primary); }
+
+.header-actions { display: flex; align-items: center; gap: var(--space-3); }
+.header-actions .btn-primary { display: none; }
+
+/* Compact language switcher — plain text links, no flags, no dropdown.
+   The active language is shown via aria-current="page" rather than a
+   separate JS-driven state, since each language is a real, separate
+   document. margin-right (on top of .header-actions's own flex gap) gives
+   it distinct breathing room from the CTA/menu-toggle next to it, so it
+   reads as its own separate utility control rather than crowding into
+   whatever sits beside it — this applies at every width .header-actions
+   is visible at, so it covers both desktop (next to the CTA) and tablet
+   (next to the menu button) with one rule. */
+.lang-switch { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; margin-right: var(--space-3); }
+.lang-switch a { color: var(--text-tertiary); padding: 6px 2px; transition: color 200ms var(--ease-decisive); }
+.lang-switch a:hover, .lang-switch a:focus-visible { color: var(--text-primary); }
+.lang-switch a[aria-current="page"] { color: var(--accent-core); font-weight: 600; }
+.lang-switch-sep { color: var(--border-strong); }
+.mobile-nav-lang { display: flex; justify-content: center; padding-block: var(--space-4); border-top: 1px solid var(--border-subtle); }
+.mobile-nav-lang .lang-switch { font-size: 13px; gap: 10px; margin-right: 0; }
+.mobile-nav-lang .lang-switch a { padding: 10px 6px; }
+
+.menu-toggle {
+  background: transparent; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+}
+.menu-icon { display: flex; flex-direction: column; gap: 5px; width: 20px; }
+.menu-icon span {
+  display: block; height: 1.5px; background: var(--text-primary); transform-origin: center;
+  transition: transform var(--dur-component) var(--ease-decisive), opacity var(--dur-micro) var(--ease-decisive);
+}
+/* Hamburger → X, driven by the aria-expanded state JS already sets — no extra JS needed */
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (min-width: 900px) {
+  .primary-nav { display: block; }
+  .header-actions .btn-primary { display: inline-flex; }
+  .menu-toggle { display: none; }
+}
+
+/* ---------- MOBILE NAV (rebuilt — class-driven only, no [hidden] conflicts) ----------
+   Polish pass: the panel now scales in from 98% rather than just fading (feels
+   like a system engaging, not a modal popping), and each row steps in with a
+   short index-based delay so opening reads as a sequence, matching the
+   numbered-index language used across the rest of the page. */
+.mobile-nav {
+  position: fixed; inset: 0; background: var(--surface-0); z-index: 999;
+  display: flex; flex-direction: column;
+  visibility: hidden; opacity: 0; transform: scale(1.02);
+  transition: opacity var(--dur-component) var(--ease-decisive), visibility var(--dur-component), transform var(--dur-component) var(--ease-decisive);
+}
+.mobile-nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.5;
+  background: radial-gradient(120% 60% at 100% 0%, rgba(61,255,171,0.12), transparent 60%);
+}
+.mobile-nav.is-open { visibility: visible; opacity: 1; transform: scale(1); }
+.mobile-nav-head { display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-4); }
+.menu-close {
+  background: transparent; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text-primary);
+  transition: transform var(--dur-micro) var(--ease-decisive), border-color var(--dur-micro), color var(--dur-micro);
+}
+.menu-close:hover { border-color: var(--accent-core); color: var(--accent-core); transform: rotate(90deg); }
+
+.mobile-nav-list { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--space-4); }
+.mobile-nav-list li {
+  display: flex; align-items: baseline; gap: var(--space-4); padding-block: var(--space-3); border-top: 1px solid var(--border-subtle);
+  opacity: 0; transform: translateY(10px);
+  transition: opacity var(--dur-component) var(--ease-decisive), transform var(--dur-component) var(--ease-decisive);
+}
+.mobile-nav.is-open .mobile-nav-list li { opacity: 1; transform: translateY(0); }
+.mobile-nav-list li:nth-child(1) { transition-delay: 60ms; }
+.mobile-nav-list li:nth-child(2) { transition-delay: 100ms; }
+.mobile-nav-list li:nth-child(3) { transition-delay: 140ms; }
+.mobile-nav-list li:nth-child(4) { transition-delay: 180ms; }
+.mobile-nav-list li:nth-child(5) { transition-delay: 220ms; }
+.mobile-nav-list li:last-child { border-bottom: 1px solid var(--border-subtle); }
+.mobile-nav-list .idx { color: var(--accent-core); font-size: 0.8125rem; }
+.mobile-nav-list a { font-family: var(--font-display); font-size: clamp(1.5rem, 8vw, 2.25rem); font-weight: 700; display: inline-flex; min-height: 44px; align-items: center; transition: color var(--dur-micro); }
+.mobile-nav-list a:hover { color: var(--accent-core); }
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav, .mobile-nav-list li { transition: opacity var(--dur-micro) linear !important; transform: none !important; }
+}
+
+/* ---------- REVEAL ---------- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease-decisive), transform 600ms var(--ease-decisive); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- PANEL (abstract-diagram system — used for process/systems beats) ---------- */
+.panel { position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); background: var(--surface-1); }
+.panel-svg { width: 100%; height: 100%; }
+.panel::after {
+  content: ""; position: absolute; inset: 0; opacity: 0.06; mix-blend-mode: overlay; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- PHOTO (duotone photography system — used for human/work beats) ----------
+   Diagrams (.panel) explain how we build. Photography (.photo) shows who and what
+   we build for. Every photo gets the same treatment so stock placeholders read as
+   one deliberate house style rather than a generic image grid. */
+.photo {
+  position: relative; overflow: hidden; border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle); background: var(--surface-1); isolation: isolate;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1) contrast(1.08) brightness(0.92); }
+.photo::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(160deg, rgba(61,255,171,0.28), rgba(10,11,13,0.65) 65%);
+  mix-blend-mode: color; opacity: 0.9;
+}
+.photo::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.photo-caption {
+  position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 3;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-primary);
+  background: rgba(10,11,13,0.55); backdrop-filter: blur(6px); padding: 5px 10px; border-radius: var(--radius-sm);
+}
+
+/* ---------- 01 OPENING (restored baseline) ----------
+   Full-bleed duotone photograph with crop-mark corners, kicker top-left,
+   kinetic blur-in type, a short leader line into the CTA. This is the
+   composition with the strongest relationship between type, CTA and image —
+   the split "plate" layout tried in a later iteration was reverted. */
+.beat-opening {
+  /* z-index added so Hero's own stacking context reliably paints above The
+     System's canvas bleed (see .system-cloud below), which now extends
+     upward past The System's own top edge toward Hero's bottom — without
+     this, later-DOM-order siblings would otherwise paint on top by default,
+     which could risk the bleed showing in front of Hero content instead of
+     behind it. Nothing else about Hero changes. */
+  position: relative; z-index: 2;
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+  padding-block: var(--space-7) var(--space-8); overflow: hidden; isolation: isolate;
+}
+.opening-media { position: absolute; inset: -100px 0; z-index: -1; }
+.opening-media img {
+  /* object-position switched from a top-biased "center 30%" (tuned for the
+     previous mountain/fog photo's composition) to a neutral center — the
+     new asset's composition can't be previewed in this environment, so a
+     centered crop is the safer default to avoid cutting off its subject.
+     Revisit this value once the new image can be checked visually. */
+  width: 100%; height: 100%; object-fit: cover; object-position: center center;
+  filter: grayscale(1) contrast(1.1) brightness(0.55);
+  animation: hero-zoom 22s ease-out forwards;
+}
+@keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+.opening-media::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,11,13,0.35) 0%, rgba(10,11,13,0.35) 40%, var(--surface-0) 96%),
+    linear-gradient(160deg, rgba(61,255,171,0.22), rgba(10,11,13,0.55) 70%);
+  background-blend-mode: normal, color;
+}
+.opening-media::after {
+  content: ""; position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.opening-frame { position: absolute; inset: var(--space-4); z-index: 1; pointer-events: none; }
+@media (min-width: 1024px) { .opening-frame { inset: var(--space-6) var(--space-7); } }
+.opening-frame span { position: absolute; width: 16px; height: 16px; border: 1.5px solid rgba(245,247,250,0.4); }
+.opening-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.opening-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.opening-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.opening-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.opening-kicker {
+  position: absolute; top: var(--space-5); left: 20px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 10px; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary);
+}
+.opening-kicker .dot { width: 6px; height: 6px; background: var(--accent-core); border-radius: 50%; box-shadow: 0 0 10px var(--accent-core); flex-shrink: 0; }
+@media (min-width: 600px) { .opening-kicker { left: 40px; } }
+@media (min-width: 1024px) { .opening-kicker { left: 80px; top: var(--space-6); } }
+
+.opening-title { font-size: clamp(2.75rem, 11vw, 7.5rem); line-height: 0.96; letter-spacing: -0.03em; text-wrap: balance; max-width: 17ch; }
+.opening-title .line {
+  display: block; filter: blur(10px);
+  transition: opacity 900ms var(--ease-decisive), transform 900ms var(--ease-decisive), filter 900ms var(--ease-decisive);
+}
+.opening-title .line.is-visible { filter: blur(0); }
+.opening-title .line:nth-child(2) { transition-delay: 90ms; }
+.opening-title .line:nth-child(3) { transition-delay: 180ms; }
+
+/* A short leader — title to CTA — borrowed from technical-drawing annotation. */
+.opening-connector { width: 1px; height: 36px; background: var(--accent-dim); margin: var(--space-4) 0 var(--space-4) 4px; position: relative; }
+.opening-connector::after {
+  content: "STUDIO SYSTEM"; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--text-tertiary); white-space: nowrap;
+}
+@media (max-width: 699px) { .opening-connector { display: none; } }
+
+.opening-meta { margin-top: var(--space-2); margin-left: 4px; display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; max-width: 560px; }
+@media (min-width: 700px) { .opening-meta { flex-direction: row; align-items: center; justify-content: space-between; max-width: none; } }
+.opening-lead {
+  position: relative; z-index: 0; color: var(--text-secondary); font-size: 1.0625rem; max-width: 42ch;
+}
+/* Real, decisive localized scrim — not the barely-there version from last
+   round. Still a pure CSS gradient (no filter:blur, no card, no fixed
+   rectangle): a multi-stop radial gradient that holds strong opacity
+   through its inner ~35-60% before a long, soft fade to fully transparent,
+   so there's genuine contrast directly behind the text with zero hard
+   edge. Anchored to .opening-lead's own box via `inset`, so it naturally
+   follows wherever the paragraph renders at each breakpoint — no separate
+   media-query positioning needed, since the paragraph itself already
+   reflows responsively and this rides along with it.
+   z-index: 0 above + z-index: -1 here together create a small LOCAL
+   stacking context scoped to just this paragraph, so the scrim reliably
+   paints behind its own text without it (or a stray z-index:auto default,
+   which paints ABOVE inline text) competing with the Hero image's own
+   z-index: -1 layer elsewhere in the section. */
+.opening-lead::before {
+  content: ""; position: absolute; z-index: -1; inset: -24px -32px; pointer-events: none;
+  background: radial-gradient(ellipse 68% 72% at 50% 50%,
+    rgba(4,5,6,0.88) 0%,
+    rgba(4,5,6,0.8) 38%,
+    rgba(4,5,6,0.48) 62%,
+    rgba(4,5,6,0.14) 84%,
+    rgba(4,5,6,0) 100%);
+}
+
+.scroll-cue { position: absolute; bottom: var(--space-5); left: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-tertiary); font-size: 11px; letter-spacing: 0.1em; }
+@media (min-width: 600px) { .scroll-cue { left: 40px; } }
+@media (min-width: 1024px) { .scroll-cue { left: 80px; } }
+.scroll-line { width: 1px; height: 32px; background: linear-gradient(var(--accent-core), transparent); }
+@media (prefers-reduced-motion: reduce) { .opening-media img { animation: none; } }
+
+/* ---------- 02 MANIFESTO ---------- */
+/* Deliberate exception to the top-only rhythm: these are centered atmospheric
+   interludes, not stacked content, so they keep symmetric padding — but kept
+   modest since min-height already supplies most of the section's height. */
+/* Height reduced from a flat 70svh (same figure on every breakpoint) to
+   responsive, content-driven sizing — desktop keeps real breathing room,
+   mobile relies on padding rather than a viewport-height minimum, since
+   wrapped text there already fills more vertical space on its own.
+   Design, copy, typography, and position are unchanged. */
+.beat-manifesto { min-height: 40svh; display: flex; align-items: center; padding-block: var(--space-7); }
+@media (max-width: 1023px) { .beat-manifesto { min-height: 32svh; padding-block: var(--space-6); } }
+@media (max-width: 699px) { .beat-manifesto { min-height: 0; padding-block: var(--space-7); } }
+.manifesto-panel { position: absolute; inset: 0; z-index: 0; }
+.manifesto-panel .panel-svg { width: 100%; height: 100%; opacity: 0.9; }
+.manifesto-inner { position: relative; z-index: 1; }
+.manifesto-statement { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.75rem, 5.5vw, 3.5rem); line-height: 1.15; max-width: 850px; letter-spacing: -0.02em; }
+
+/* ---------- 04 CAPABILITIES: THREE LAYERS / ONE PRODUCT ----------
+   Three translucent SVG <g> layers share one coordinate space and overlap
+   by default (data-active="all") — that overlap of semi-transparent line
+   art IS the "combined product" state, no extra content needed. Isolating
+   a capability (hover preview on fine pointers, click/tap to persist,
+   full keyboard support) pushes the OTHER two layers aside — reduced
+   opacity, offset, a slight rotation — and brings the selected one to full
+   strength. Each layer carries its own --away-x/--away-y/--away-r "exploded"
+   position so the interaction reads as mechanical/precise, not bouncy. */
+.beat-subtitle { color: var(--text-secondary); max-width: 52ch; margin-top: var(--space-3); font-size: 1.0625rem; }
+
+.layers-widget { display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-6); }
+@media (min-width: 1024px) {
+  .layers-widget { flex-direction: row; align-items: stretch; gap: var(--space-8); }
+}
+
+.layers-controls { display: flex; flex-direction: column; }
+@media (min-width: 1024px) { .layers-controls { flex: 0 0 30%; justify-content: center; } }
+
+.layers-tab {
+  display: block; width: 100%; text-align: left; background: none; border: none;
+  border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0;
+  cursor: pointer; color: inherit; font: inherit; -webkit-appearance: none; appearance: none;
+}
+.layers-tab:last-child { border-bottom: 1px solid var(--border-subtle); }
+.layers-tab .cap-index { display: block; margin-bottom: var(--space-2); }
+.layers-tab-title {
+  display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.125rem;
+  color: var(--text-primary); transition: color 250ms var(--ease-decisive);
+}
+.layers-tab-all .layers-tab-title { font-size: 1rem; }
+.layers-tab-desc {
+  display: block; max-height: 0; opacity: 0; overflow: hidden; color: var(--text-secondary);
+  font-size: 0.9375rem; margin-top: 0; transition: max-height 400ms var(--ease-decisive),
+    opacity 300ms var(--ease-decisive), margin-top 400ms var(--ease-decisive);
+}
+.layers-tab.is-active { border-top-color: var(--accent-dim); }
+.layers-tab.is-active .layers-tab-title { color: var(--accent-core); }
+.layers-tab.is-active .layers-tab-desc { max-height: 120px; opacity: 1; margin-top: var(--space-2); }
+@media (hover: hover) and (pointer: fine) {
+  .layers-tab:not(.is-active):hover .layers-tab-title { color: var(--accent-dim); }
+}
+.layers-tab:focus-visible { outline: 1.5px solid var(--accent-core); outline-offset: 4px; }
+
+/* Three protected regions — header, diagram, footer — implemented as an
+   explicit flex column rather than absolute-positioned overlays. This is
+   the actual fix for content overlapping the header/footer: previously the
+   readout was an HTML element absolutely positioned OVER the SVG, and SVG
+   content near the top of the viewBox could render directly underneath it;
+   likewise the fine technical caption lived INSIDE each SVG group near the
+   viewBox's bottom edge, with no guaranteed clearance. Header and footer
+   are now separate flex rows with their own fixed padding that the SVG
+   simply cannot occupy — the diagram only ever gets whatever space is left
+   in the middle .layers-canvas row, at any breakpoint or stage size. */
+.layers-stage {
+  position: relative; flex: 1 1 auto; border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); background: var(--surface-1);
+  aspect-ratio: 4 / 3.15; overflow: hidden; display: flex; flex-direction: column;
+}
+.layers-header { flex: 0 0 auto; padding: var(--space-3) var(--space-3) var(--space-2); }
+.layers-readout { font-size: 11px; letter-spacing: 0.1em; color: var(--accent-core); }
+.layers-canvas { flex: 1 1 auto; position: relative; min-height: 0; }
+.layers-svg { width: 100%; height: 100%; display: block; }
+.layers-footer {
+  flex: 0 0 auto; padding: var(--space-2) var(--space-3) var(--space-3);
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em;
+  color: var(--text-tertiary); opacity: 0.85; text-align: center;
+}
+
+/* Each layer's resting ("exploded") offset when it is NOT the isolated one.
+   Mechanically precise, no bounce/overshoot — a single eased transition. */
+.tl-layer {
+  --layer-color: var(--accent-dim);
+  transition: transform 550ms var(--ease-decisive), opacity 550ms var(--ease-decisive);
+  transform-box: fill-box; transform-origin: center;
+}
+.tl-layer[data-layer="1"] { --away-x: -30px; --away-y: -22px; --away-r: -3deg; }
+.tl-layer[data-layer="2"] { --away-x: 0px;   --away-y: 32px;  --away-r: 0deg; }
+.tl-layer[data-layer="3"] { --away-x: 30px;  --away-y: -16px; --away-r: 3deg; }
+
+.layers-stage[data-active="all"] .tl-layer { transform: none; opacity: 0.6; }
+
+.layers-stage[data-active="1"] .tl-layer[data-layer="1"],
+.layers-stage[data-active="2"] .tl-layer[data-layer="2"],
+.layers-stage[data-active="3"] .tl-layer[data-layer="3"] {
+  transform: none; opacity: 1; --layer-color: var(--accent-core);
+}
+.layers-stage[data-active="1"] .tl-layer:not([data-layer="1"]),
+.layers-stage[data-active="2"] .tl-layer:not([data-layer="2"]),
+.layers-stage[data-active="3"] .tl-layer:not([data-layer="3"]) {
+  transform: translate(var(--away-x), var(--away-y)) rotate(var(--away-r));
+  opacity: 0.14;
+}
+
+.tl-shape { fill: none; stroke: var(--layer-color); stroke-width: 1.3; }
+.tl-shape-thin { fill: none; stroke: var(--layer-color); stroke-width: 1; opacity: 0.85; }
+.tl-dot { fill: var(--layer-color); opacity: 0.6; }
+.tl-node-dot { fill: var(--layer-color); }
+.tl-line { fill: none; stroke: var(--layer-color); stroke-width: 1.2; }
+.tl-line-thin { stroke: var(--layer-color); stroke-width: 1; opacity: 0.7; }
+.tl-grid { stroke: var(--layer-color); stroke-width: 1; stroke-dasharray: 2 3; opacity: 0.5; }
+.tl-node { fill: var(--surface-0); stroke: var(--layer-color); stroke-width: 1.3; }
+.tl-node-dim { opacity: 0.7; }
+.tl-branch { fill: none; stroke: var(--layer-color); stroke-width: 1.1; }
+.tl-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em; fill: var(--layer-color); }
+.tl-fine { font-size: 7px; opacity: 0.85; }
+.tl-accent-shape { stroke: var(--accent-core); }
+.tl-arrow-fill { fill: var(--layer-color); }
+
+/* 02 — user journey: one primary route (solid, full strength) and one
+   muted alternate route (dashed, reduced) sharing the layer's own color so
+   both still dim/brighten correctly with the rest of the group. A dashed
+   "tap ring" marks the interactive/decision node as clickable, not just a
+   layout box — the distinction from 01's page-structure vocabulary. */
+.tl-flow-primary { fill: none; stroke: var(--layer-color); stroke-width: 1.5; }
+.tl-flow-alt { fill: none; stroke: var(--layer-color); stroke-width: 1; opacity: 0.45; stroke-dasharray: 3 3; }
+.tl-node-primary { stroke: var(--accent-core); }
+.tl-tap-ring { fill: none; stroke: var(--layer-color); stroke-width: 1; opacity: 0.4; stroke-dasharray: 2 4; }
+
+/* Mobile: reduce how far layers explode apart so nothing pushes outside
+   the stage on a narrow viewport. Header/footer bands stay fixed-size at
+   every breakpoint, so they never need a separate mobile override to stay
+   protected — that guarantee is structural now, not per-breakpoint. */
+@media (max-width: 699px) {
+  .layers-stage { aspect-ratio: 4 / 3.6; }
+  .layers-footer { font-size: 8px; }
+  .tl-layer[data-layer="1"] { --away-x: -16px; --away-y: -12px; }
+  .tl-layer[data-layer="2"] { --away-y: 18px; }
+  .tl-layer[data-layer="3"] { --away-x: 16px; --away-y: -9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-layer { transition: opacity 200ms linear; transform: none !important; }
+  .layers-tab-desc { transition: opacity 200ms linear; }
+}
+
+/* ---------- 02 THE SYSTEM (CONCENTRATION → BUILD → RELEASE → DISPERSION → SETTLED) ----------
+   Reference behavior: one large, dense, organic volumetric mass — not
+   isolated particles — that starts compact and expands explosively outward
+   with scroll before settling into a sparse but still-present residual
+   trace. Rendered on two stacked canvases sharing one coordinate system: a
+   soft/blurred lower layer for the atmospheric haze volume, and a sharper/
+   unblurred upper layer for secondary particles and highlight details.
+   STRUCTURAL FIX: .system-burst no longer has a fixed pixel height. It now
+   wraps the stage list itself, and its height is set entirely by that
+   in-flow content (Discover through Grow) — the two canvases are
+   position:absolute; inset:0 within it, so the particle field always spans
+   exactly as tall as the four stages, at every breakpoint, with nothing to
+   fall out of sync. Previously the canvas was a short, separately-sized
+   box that simply ended before the stage list began, which is what made
+   Grow look disconnected — no amount of retiming a fixed-height box could
+   fix that. Progress is ratcheted (forward-only) and scroll-driven. */
+/* Render surface — sized and positioned entirely by main.js (see
+   sizeSystemVisual), not by any CSS bleed value. top/height are set to the
+   exact pixel span between Hero's bottom edge and #performance's top edge,
+   measured directly from those elements' real positions, so coverage is
+   guaranteed correct at any content height or breakpoint instead of
+   depending on a guessed constant. */
+.system-visual { position: absolute; left: 0; width: 100%; overflow: visible; pointer-events: none; }
+
+.system-burst-readout {
+  position: absolute; top: var(--space-3); left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.14em; color: var(--text-tertiary); z-index: 4;
+  transition: color 400ms var(--ease-decisive);
+}
+.system-visual.is-live .system-burst-readout { color: var(--accent-core); }
+
+/* The SAME two canvases (no second Canvas, no separate Hero animation) —
+   they simply fill #system-visual exactly, which is now the full required
+   region. main.js keeps particle scale/origin anchored to the actual
+   Discover-Grow content height regardless of how much extra render area
+   exists above/below it (see logicalH/bleedTop in main.js), so visual
+   character is unchanged — only coverage grew. */
+.system-cloud, .system-cloud-sharp { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* Primary volume: soft and atmospheric — this is the layer allowed to stay blurred. */
+.system-cloud { filter: blur(4px); z-index: 1; }
+@media (max-width: 699px) { .system-cloud { filter: blur(3px); } }
+/* Secondary particles + highlights: deliberately sharp, sits above the haze. */
+.system-cloud-sharp { filter: blur(0.4px); z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .system-burst-readout { color: var(--accent-core); }
+}
+
+/* Content box — back to a plain in-flow wrapper (eyebrow/heading + stage
+   list). It no longer hosts the canvases itself, so it needs no bleed
+   custom property and no overflow override; it just determines the
+   section's normal height, sitting visually above #system-visual. */
+.system-burst { position: relative; z-index: 3; width: 100%; padding-top: var(--space-5); }
+
+.system-field { display: flex; flex-direction: column; }
+.system-node {
+  position: relative; padding-block: var(--space-6); border-top: 1px solid var(--border-subtle);
+  transition: background 300ms, border-color 400ms var(--ease-decisive);
+}
+.system-node:last-child { border-bottom: 1px solid var(--border-subtle); }
+@media (hover: hover) and (pointer: fine) {
+  .system-node.is-active:hover { background: rgba(61,255,171,0.03); border-color: var(--accent-dim); cursor: default; }
+}
+.system-node .cap-index, .system-node h3, .system-node > p:last-child {
+  opacity: 0; transform: translateY(14px); text-shadow: 0 2px 16px rgba(10,11,13,0.85);
+  transition: opacity 600ms var(--ease-decisive), transform 600ms var(--ease-decisive);
+}
+.system-node.is-active .cap-index,
+.system-node.is-active h3,
+.system-node.is-active > p:last-child {
+  opacity: 1; transform: none;
+}
+.system-node h3 { font-size: 1.75rem; margin-bottom: var(--space-3); transition-delay: 60ms; }
+.system-node > p:last-child { color: var(--text-secondary); max-width: 42ch; transition-delay: 110ms; }
+
+/* Mobile: an intentional adaptation, not a shrunk desktop layout. Tighter
+   row padding keeps the section from running unnecessarily long on a
+   narrow viewport, where each stage's copy wraps to more lines. Tablet and
+   desktop are untouched by this rule. */
+@media (max-width: 699px) {
+  .system-node { padding-block: var(--space-5); }
+  .system-node h3 { font-size: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-node .cap-index, .system-node h3, .system-node > p:last-child { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- 03 PERFORMANCE (matches approved reference screenshot) ----------
+   Visible green radial backdrop restored (a flat background read as too
+   quiet against the reference), and the crop-mark frame now spans the
+   FULL section — same corner-bracket device the Hero uses, but scoped to
+   the whole beat, not a tight box around the text — so there's real
+   visual distance between the brackets and the reading itself, matching
+   the screenshot. No card, no icon, no chart, no eyebrow. The number
+   animates once via main.js when it enters view; this file only handles
+   the static/final appearance and the reduced-motion fallback. */
+.beat-performance {
+  /* z-index added for the same reason as Hero: The System's render surface
+     is measured to stop exactly at this section's top edge, but a small
+     z-index margin of safety costs nothing and guarantees this section's
+     own content can never be affected by it. */
+  position: relative; z-index: 2; min-height: 40svh; display: flex; align-items: center;
+  padding-block: var(--space-6); overflow: hidden;
+}
+@media (min-width: 700px) and (max-width: 1023px) { .beat-performance { padding-block: var(--space-7); } }
+@media (min-width: 1024px) { .beat-performance { padding-block: calc(var(--space-7) + var(--space-2)); } }
+.beat-performance::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 85% 75% at 50% 42%, #12362a 0%, #0d2019 42%, var(--surface-0) 78%);
+}
+.performance-frame { position: absolute; inset: var(--space-4); z-index: 1; pointer-events: none; }
+@media (min-width: 1024px) { .performance-frame { inset: var(--space-6) var(--space-7); } }
+.performance-frame span { position: absolute; width: 16px; height: 16px; border: 1.5px solid rgba(245,247,250,0.35); }
+.performance-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.performance-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.performance-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.performance-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+.performance-inner { position: relative; z-index: 2; text-align: center; margin-inline: auto; }
+.performance-number {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(4rem, 15vw, 8.5rem); line-height: 1;
+  color: var(--accent-core); letter-spacing: -0.02em;
+}
+.performance-line { font-size: 1.125rem; color: var(--text-secondary); margin-top: var(--space-4); }
+
+/* ---------- 06 SELECTED WORK (3D carousel) ----------
+   Refinement pass: root-cause fix for the mobile empty-gap bug (the stage
+   used a guessed fixed height that was far taller than the actual rendered
+   image at narrow widths — see .work-carousel-stage below), a proprietary
+   rail-based navigation instrument (no icon arrows, no PREV/NEXT text), a
+   restrained corner-lock detail on slide change, and deliberate spacing
+   throughout, especially after the nav. */
+.work-carousel { margin-top: var(--space-6); padding-bottom: calc(var(--space-7) + var(--space-3)); }
+.work-carousel:focus-visible { outline: 1.5px solid var(--accent-core); outline-offset: 6px; }
+@media (max-width: 1023px) { .work-carousel { padding-bottom: var(--space-7); } }
+@media (max-width: 699px) { .work-carousel { padding-bottom: var(--space-6); } }
+
+/* The stage's height is now DERIVED from its own width via aspect-ratio —
+   the same 3:2 ratio as the image frame — instead of a fixed px guess.
+   That guarantees the reserved space always matches what the active slide
+   actually renders at, at any viewport, which is the actual fix for the
+   large dead gap on mobile (previously a 400px fixed height against an
+   image rendering at ~165-230px tall there). Side slides are scaled/rotated
+   copies of the same box and read fine within the same footprint, with
+   overflow left visible so their peripheral edges aren't clipped. */
+.work-carousel-stage {
+  position: relative; width: min(560px, 74%); max-width: 560px; margin-inline: auto;
+  aspect-ratio: 3 / 2; perspective: 1600px; perspective-origin: 50% 45%; overflow: visible;
+}
+@media (max-width: 699px) { .work-carousel-stage { width: min(420px, 88%); } }
+
+.work-slide {
+  position: absolute; inset: 0;
+  transition: transform 850ms var(--ease-decisive), opacity 700ms var(--ease-decisive), filter 700ms var(--ease-decisive);
+}
+
+/* More noticeable choreography this round: side-rest rotation/depth/scale
+   pulled further from center than before, so the delta the transition
+   actually crosses is substantially bigger — that's what makes the motion
+   read clearly rather than technically-animated-but-barely-perceived.
+   Opacity kept high enough that side projects still never look disabled. */
+.work-slide[data-offset="0"] {
+  transform: translateZ(0) rotateY(0deg) scale(1);
+  opacity: 1; z-index: 3; filter: none; pointer-events: auto;
+}
+.work-slide[data-offset="-1"] {
+  transform: translateX(-58%) translateZ(-190px) rotateY(20deg) scale(0.78);
+  opacity: 0.6; z-index: 2; filter: saturate(0.7) brightness(0.75); pointer-events: none;
+}
+.work-slide[data-offset="1"] {
+  transform: translateX(58%) translateZ(-190px) rotateY(-20deg) scale(0.78);
+  opacity: 0.6; z-index: 2; filter: saturate(0.7) brightness(0.75); pointer-events: none;
+}
+.work-slide[data-offset="hidden"] {
+  transform: translateZ(-340px) rotateY(28deg) scale(0.56);
+  opacity: 0; z-index: 1; pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .work-slide[data-offset="-1"] { transform: translateX(-48%) translateZ(-150px) rotateY(17deg) scale(0.78); }
+  .work-slide[data-offset="1"]  { transform: translateX(48%) translateZ(-150px) rotateY(-17deg) scale(0.78); }
+}
+@media (max-width: 699px) {
+  .work-slide[data-offset="-1"] { transform: translateX(-40%) translateZ(-100px) rotateY(13deg) scale(0.84); opacity: 0.42; }
+  .work-slide[data-offset="1"]  { transform: translateX(40%) translateZ(-100px) rotateY(-13deg) scale(0.84); opacity: 0.42; }
+}
+
+/* Signature detail: four small corner marks — the same crop-mark motif
+   already used in the Hero and 0.6s section — flash in around the incoming
+   active frame and settle out, marking the moment focus locks onto the new
+   project. Triggered once per navigation via .is-locking (see main.js). */
+.work-slide-lock { position: absolute; inset: var(--space-2); pointer-events: none; opacity: 0; transition: opacity 200ms linear; z-index: 2; }
+.work-slide-lock i { position: absolute; width: 12px; height: 12px; border: 1.5px solid var(--accent-core); font-style: normal; }
+.work-slide-lock i:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; }
+.work-slide-lock i:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
+.work-slide-lock i:nth-child(3) { bottom: 0; left: 0; border-right: none; border-top: none; }
+.work-slide-lock i:nth-child(4) { bottom: 0; right: 0; border-left: none; border-top: none; }
+.work-slide.is-locking .work-slide-lock { opacity: 1; transition: opacity 120ms linear; }
+
+.work-slide-frame {
+  position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--border-subtle); background: var(--surface-1);
+}
+.work-slide-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.work-slide-tag {
+  position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 1;
+  font-size: 10px; letter-spacing: 0.06em; color: var(--text-primary);
+  background: rgba(10,11,13,0.6); backdrop-filter: blur(6px); padding: 5px 9px; border-radius: var(--radius-sm);
+}
+
+/* The single external info block — normal flow, sits directly beneath the
+   3D stage with a minimal, fixed gap, so image + title + description + CTA
+   always read as one presentation regardless of content length at any
+   breakpoint. Outgoing content fades + shifts up, incoming content starts
+   shifted down and settles in with a fade — coordinated with the image
+   transition in main.js so information visibly "resolves" rather than
+   instantly replacing. */
+.work-info {
+  margin-top: var(--space-4); text-align: center;
+  transition: opacity 300ms var(--ease-decisive), transform 300ms var(--ease-decisive);
+}
+.work-info.is-leaving { opacity: 0; transform: translateY(-10px); }
+.work-info.is-entering { opacity: 0; transform: translateY(10px); transition: none; }
+.work-info h3 { font-size: 1.375rem; margin-top: var(--space-1); }
+.work-slide-category { color: var(--accent-core); font-size: 0.8125rem; letter-spacing: 0.04em; margin-top: var(--space-1); }
+.work-slide-desc { color: var(--text-secondary); max-width: 42ch; margin: var(--space-2) auto 0; }
+
+/* CTA icon — "frame + exiting vector": an incomplete corner bracket (the
+   project) with a diagonal vector breaking out of it (opening/entering the
+   project), built from the same open-bracket construction as the rail tips
+   and the site's existing corner-mark language, not a generic external-link
+   glyph. Frame nudges one way, vector nudges the other and turns Signal
+   Green on hover/focus — a controlled ~2-3px "separation," no rotation. */
+.work-slide-cta {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-3);
+  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-primary); transition: color 200ms var(--ease-decisive);
+}
+.work-slide-cta:hover, .work-slide-cta:focus-visible { color: var(--accent-core); }
+.work-cta-icon { overflow: visible; }
+.work-cta-frame { fill: none; stroke: var(--border-strong); stroke-width: 1.4; stroke-linecap: square; transition: stroke 200ms var(--ease-decisive), transform 200ms var(--ease-decisive); }
+.work-cta-vector, .work-cta-vector-tip { fill: none; stroke: var(--text-primary); stroke-width: 1.4; stroke-linejoin: miter; stroke-linecap: square; transition: stroke 200ms var(--ease-decisive), transform 200ms var(--ease-decisive); }
+.work-slide-cta:hover .work-cta-frame, .work-slide-cta:focus-visible .work-cta-frame { transform: translate(-1.4px, 1.4px); }
+.work-slide-cta:hover .work-cta-vector, .work-slide-cta:hover .work-cta-vector-tip,
+.work-slide-cta:focus-visible .work-cta-vector, .work-slide-cta:focus-visible .work-cta-vector-tip {
+  stroke: var(--accent-core); transform: translate(1.6px, -1.6px);
+}
+
+/* Proprietary navigation instrument — unmistakably directional. Each control
+   is one SVG: a technical rail, a small alignment notch, and an open
+   directional tip (built from the same two-stroke corner construction as
+   the CTA icon, not a stock chevron glyph) — combined as one engineered
+   mark, not separate icon + line pieces. A Signal Green overlay line
+   reveals along the rail from the center outward on hover/focus (a
+   stroke-dashoffset "draw-in", direction-correct per side), and the whole
+   mark shifts 6px toward the direction it navigates. Invisible padding
+   keeps every control at a 44px touch target regardless of how minimal the
+   visible mark is. */
+.work-nav {
+  display: flex; align-items: center; justify-content: center; gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+.work-rail {
+  display: flex; align-items: center; background: none; border: none; cursor: pointer;
+  padding: 15px 8px; transition: transform 150ms var(--ease-decisive);
+}
+.work-rail:focus-visible { outline: 1.5px solid var(--accent-core); outline-offset: 3px; }
+.work-rail-svg { display: block; overflow: visible; transition: transform 220ms var(--ease-decisive); }
+.work-rail-prev:hover .work-rail-svg, .work-rail-prev:focus-visible .work-rail-svg { transform: translateX(-6px); }
+.work-rail-next:hover .work-rail-svg, .work-rail-next:focus-visible .work-rail-svg { transform: translateX(6px); }
+.work-rail:active .work-rail-svg { transform: scaleX(0.85); }
+
+.work-rail-base { stroke: var(--border-subtle); stroke-width: 1.2; }
+.work-rail-fill { stroke: var(--accent-core); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 320ms var(--ease-decisive); }
+.work-rail:hover .work-rail-fill, .work-rail:focus-visible .work-rail-fill { stroke-dashoffset: 0; }
+.work-rail-notch { stroke: var(--border-strong); stroke-width: 1; opacity: 0.75; }
+.work-rail-tip { fill: none; stroke: var(--text-tertiary); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 250ms var(--ease-decisive); }
+.work-rail:hover .work-rail-tip, .work-rail:focus-visible .work-rail-tip { stroke: var(--accent-core); }
+
+.work-position { display: flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: 0.08em; color: var(--text-tertiary); }
+.work-position #work-position-current { color: var(--accent-core); font-weight: 600; }
+.work-position-sep { display: inline-block; width: 10px; height: 1px; background: var(--border-strong); }
+@media (max-width: 699px) { .work-nav { gap: var(--space-4); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .work-slide { transition: opacity 200ms linear; }
+  .work-slide[data-offset="0"] { transform: none; opacity: 1; }
+  .work-slide[data-offset="-1"], .work-slide[data-offset="1"], .work-slide[data-offset="hidden"] {
+    transform: none; opacity: 0;
+  }
+  .work-slide-lock { display: none; }
+  .work-info, .work-info.is-leaving, .work-info.is-entering { transition: opacity 150ms linear; transform: none; }
+}
+
+/* ---------- 07 TEAM (editorial) ---------- */
+/* padding-block now matches the base .beat rhythm exactly (top-only) — no override needed. */
+.team-editorial { display: flex; flex-direction: column; }
+.team-profile { padding-block: var(--space-7); border-top: 1px solid var(--border-subtle); }
+.team-profile:last-child { border-bottom: 1px solid var(--border-subtle); }
+.team-profile-inner { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
+@media (min-width: 800px) { .team-profile-inner { grid-template-columns: 0.8fr 1fr; gap: var(--space-7); } }
+.team-profile-inner.reverse .team-copy { order: 2; }
+@media (max-width: 799px) { .team-profile-inner.reverse .team-copy { order: 0; } }
+.panel-portrait { aspect-ratio: 3/4; max-width: 280px; }
+@media (min-width: 800px) { .team-profile-inner.reverse .panel-portrait { margin-left: auto; } }
+.team-copy h3 { font-size: 1.75rem; margin: var(--space-2) 0 var(--space-3); }
+.team-quote { font-size: 1.1875rem; color: var(--text-secondary); font-style: normal; max-width: 42ch; }
+
+/* ---------- 08 TENSION (signature moment) ----------
+   Full-bleed, edge to edge — deliberately not a bordered "demo" box, so it
+   reads as part of the page's own structure rather than a UI feature
+   callout. Lines are SVG quadratic curves; each one's control point is
+   pulled toward the cursor with a falloff by distance, and the "spring
+   back" on release is a CSS transition on the `d` attribute itself
+   (animatable in all evergreen browsers when the path's command count
+   stays constant, which it always does here) — no continuous JS loop. */
+.beat-tension { overflow: hidden; }
+.tension-field {
+  position: relative; width: 100vw; margin-left: calc(50% - 50vw);
+  height: 42vh; min-height: 260px; max-height: 440px; margin-top: var(--space-6);
+  background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);
+}
+.tension-svg { width: 100%; height: 100%; display: block; }
+.tension-line {
+  fill: none; stroke: var(--accent-dim); stroke-width: 1; stroke-opacity: 0.4;
+  transition: d 260ms var(--ease-decisive), stroke-opacity 260ms var(--ease-decisive);
+  vector-effect: non-scaling-stroke;
+}
+.tension-tag {
+  position: absolute; left: 20px; bottom: var(--space-3); z-index: 1;
+  font-size: 11px; letter-spacing: 0.08em; color: var(--text-tertiary); pointer-events: none;
+}
+@media (min-width: 600px) { .tension-tag { left: 40px; } }
+@media (min-width: 1024px) { .tension-tag { left: 80px; } }
+
+/* ---------- 09 CTA ---------- */
+.beat-cta { padding-block: var(--space-8); }
+@media (min-width: 1024px) { .beat-cta { padding-block: var(--space-9); } }
+.cta-split { display: grid; grid-template-columns: 1fr; gap: var(--space-6); max-width: var(--content-max); margin-inline: auto; padding-inline: 20px; }
+@media (min-width: 600px) { .cta-split { padding-inline: 40px; } }
+@media (min-width: 1024px) { .cta-split { padding-inline: 80px; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center; } }
+.cta-title { font-size: clamp(1.75rem, 5vw, 3rem); margin: var(--space-3) 0 var(--space-4); }
+
+.contact-form { display: flex; flex-direction: column; gap: var(--space-4); }
+/* Netlify honeypot — off-screen (not display:none/hidden, which some bots
+   correctly skip filling regardless), and unreachable by keyboard/AT via
+   tabindex="-1" plus aria-hidden on the wrapper, so it never affects real
+   users. */
+.form-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; left: -9999px; }
+
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-field label { font-size: 0.875rem; font-weight: 600; }
+.form-field input, .form-field textarea {
+  background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);
+  padding: 12px 14px; min-height: 44px; color: var(--text-primary);
+  transition: border-color var(--dur-micro), box-shadow var(--dur-micro);
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.form-field input:focus, .form-field textarea:focus { border-color: var(--accent-core); box-shadow: 0 0 0 3px rgba(61,255,171,0.2); outline: none; }
+.field-hint { font-size: 0.8125rem; color: var(--text-tertiary); }
+.contact-form .btn { align-self: flex-start; }
+.contact-form .btn:disabled { opacity: 0.6; cursor: default; }
+.form-status { font-size: 0.875rem; color: var(--accent-core); min-height: 1.2em; }
+.form-status.is-error { color: #FF6B6B; }
+
+/* Submitting: a thin technical progress rail, not a spinner — a short
+   Signal Green segment sweeps the track while the request is in flight. */
+.form-progress { width: 100%; max-width: 220px; height: 2px; background: var(--border-subtle); overflow: hidden; border-radius: 1px; }
+.form-progress span {
+  display: block; width: 40%; height: 100%; background: var(--accent-core);
+  animation: form-progress-sweep 1100ms ease-in-out infinite;
+}
+@keyframes form-progress-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-progress span { animation: none; opacity: 0.7; width: 100%; }
+}
+
+/* Success — shown ONLY after a genuinely successful submission response
+   (see main.js). Four small corner marks animate inward and settle, a thin
+   Signal Green line resolves beneath them, then the confirmation text
+   appears — the same restrained alignment-mark language used elsewhere
+   (Hero, 0.6s section, Selected Work's lock-in detail), not a generic
+   checkmark or celebratory animation. */
+.form-success { text-align: left; }
+.form-success-marks { position: relative; width: 48px; height: 48px; margin-bottom: var(--space-3); }
+.form-success-marks i {
+  position: absolute; width: 14px; height: 14px; border: 1.5px solid var(--accent-core);
+  opacity: 0; transform: scale(1.6); transition: opacity 350ms var(--ease-decisive), transform 450ms var(--ease-decisive);
+}
+.form-success-marks i:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; }
+.form-success-marks i:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
+.form-success-marks i:nth-child(3) { bottom: 0; left: 0; border-right: none; border-top: none; }
+.form-success-marks i:nth-child(4) { bottom: 0; right: 0; border-left: none; border-top: none; }
+.form-success.is-in .form-success-marks i { opacity: 1; transform: scale(1); }
+.form-success-line { width: 0; height: 1.5px; background: var(--accent-core); margin-bottom: var(--space-3); transition: width 450ms var(--ease-decisive) 250ms; }
+.form-success.is-in .form-success-line { width: 64px; }
+.form-success-title { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; opacity: 0; transform: translateY(6px); transition: opacity 400ms var(--ease-decisive) 380ms, transform 400ms var(--ease-decisive) 380ms; }
+.form-success-sub { color: var(--text-secondary); margin-top: var(--space-1); opacity: 0; transform: translateY(6px); transition: opacity 400ms var(--ease-decisive) 460ms, transform 400ms var(--ease-decisive) 460ms; }
+.form-success.is-in .form-success-title, .form-success.is-in .form-success-sub { opacity: 1; transform: none; }
+.form-success-reset {
+  display: inline-block; margin-top: var(--space-4); background: none; border: none; cursor: pointer;
+  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.04em; color: var(--text-tertiary);
+  border-bottom: 1px solid var(--border-strong); padding-bottom: 2px; transition: color 200ms, border-color 200ms;
+}
+.form-success-reset:hover, .form-success-reset:focus-visible { color: var(--accent-core); border-color: var(--accent-core); }
+
+@media (prefers-reduced-motion: reduce) {
+  .form-success-marks i, .form-success-line, .form-success-title, .form-success-sub { transition: opacity 200ms linear; transform: none; }
+  .form-success-line { transition: opacity 200ms linear, width 200ms linear; }
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer { border-top: 1px solid var(--border-subtle); padding-top: var(--space-7); overflow: hidden; }
+.footer-wordmark { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.5rem, 12vw, 7rem); letter-spacing: -0.03em; line-height: 1; color: var(--surface-2); }
+.footer-inner { display: flex; flex-direction: column; gap: var(--space-6); padding-block: var(--space-6); border-top: 1px solid var(--border-subtle); margin-top: var(--space-6); }
+@media (min-width: 700px) { .footer-inner { flex-direction: row; justify-content: space-between; align-items: flex-start; } }
+.footer-status { color: var(--text-tertiary); font-size: 0.8125rem; letter-spacing: 0.05em; }
+.footer-nav { display: flex; gap: var(--space-7); }
+.footer-heading { color: var(--accent-core); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: var(--space-3); }
+.footer-nav ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-nav a { color: var(--text-secondary); font-size: 0.9375rem; }
+.footer-nav a:hover { color: var(--text-primary); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle); padding-block: var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-2); font-size: 0.8125rem; color: var(--text-tertiary);
+}
+@media (min-width: 700px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+.footer-legal a:hover { color: var(--text-primary); }
+
+/* ---------- Back to Top ----------
+   A compact directional instrument (vertical rail + open upward tip),
+   reusing the same base-rail/Signal-Green-fill/open-tip construction as
+   Selected Work's PREV/NEXT controls — not a generic circle+arrow button.
+   Hidden until a meaningful scroll distance, fades/lifts in and out (see
+   main.js), scrolls to the true top of the document, never an arbitrary
+   section. Shared by both languages; only the aria-label text differs,
+   set directly per file. */
+.back-to-top {
+  position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 500;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  background: rgba(17,19,24,0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--border-subtle); border-radius: 50%; cursor: pointer;
+  opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition: opacity 250ms var(--ease-decisive), transform 250ms var(--ease-decisive), border-color 200ms var(--ease-decisive);
+}
+.back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover, .back-to-top:focus-visible { border-color: var(--accent-core); }
+.back-to-top:focus-visible { outline: 1.5px solid var(--accent-core); outline-offset: 3px; }
+@media (max-width: 699px) { .back-to-top { right: var(--space-3); bottom: var(--space-3); } }
+
+.back-to-top-svg { display: block; overflow: visible; transition: transform 220ms var(--ease-decisive); }
+.back-to-top:hover .back-to-top-svg, .back-to-top:focus-visible .back-to-top-svg { transform: translateY(-4px); }
+.back-to-top-rail-base { stroke: var(--text-tertiary); stroke-width: 1.3; }
+.back-to-top-rail-fill {
+  stroke: var(--accent-core); stroke-width: 1.3; stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset 320ms var(--ease-decisive);
+}
+.back-to-top:hover .back-to-top-rail-fill, .back-to-top:focus-visible .back-to-top-rail-fill { stroke-dashoffset: 0; }
+.back-to-top-tip {
+  fill: none; stroke: var(--text-tertiary); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke 250ms var(--ease-decisive);
+}
+.back-to-top:hover .back-to-top-tip, .back-to-top:focus-visible .back-to-top-tip { stroke: var(--accent-core); }
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top { transition: opacity 150ms linear; transform: none; }
+  .back-to-top.is-visible { transform: none; }
+  .back-to-top-svg, .back-to-top:hover .back-to-top-svg, .back-to-top:focus-visible .back-to-top-svg { transition: none; transform: none; }
+}
